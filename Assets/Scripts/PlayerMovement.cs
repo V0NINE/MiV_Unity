@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] float speed = 10f;
+    [SerializeField] float speed = 18f;
     [SerializeField] float leanLimit = 40f;
 
     Rigidbody rb;
