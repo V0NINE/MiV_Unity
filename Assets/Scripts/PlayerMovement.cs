@@ -5,6 +5,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float speed = 18f;
     [SerializeField] float leanLimit = 40f;
 
+    public float lowerLimit = -8.8f;
+
     Rigidbody rb;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -30,8 +32,9 @@ public class PlayerMovement : MonoBehaviour
     void ClampPosition()
     {
 	Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);	    
+	float yLowerLimit = Camera.main.WorldToViewportPoint(new Vector3(0, lowerLimit, 0)).y;
 	pos.x = Mathf.Clamp01(pos.x);
-	pos.y = Mathf.Clamp01(pos.y);
+	pos.y = Mathf.Clamp(pos.y, yLowerLimit, 1f);
 	transform.position = Camera.main.ViewportToWorldPoint(pos);
     }
 
