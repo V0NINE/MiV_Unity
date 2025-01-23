@@ -263,6 +263,8 @@ MonoBehaviour:
   bombSound: {fileID: 8300000, guid: f7165775c4c3b67459ecbf39011c21fd, type: 3}
   boostSound: {fileID: 8300000, guid: 5cccd0bd8a2ab6c91b39fb5490249e57, type: 3}
   boostFadeSound: {fileID: 8300000, guid: e41d473992575a649b2503f97e13d870, type: 3}
+  laserSound: {fileID: 8300000, guid: f78c2b032b84320bb8407eba76074320, type: 3}
+  laserVolume: 0.3
 --- !u!4 &140672919
 Transform:
   m_ObjectHideFlags: 0
