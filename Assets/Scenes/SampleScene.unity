@@ -1169,7 +1169,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: a611dedc51523be98a98f7a6883c6868, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 13.7
+      value: 6.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a611dedc51523be98a98f7a6883c6868, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1236,7 +1236,7 @@ PrefabInstance:
       addedObject: {fileID: 768785446}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a611dedc51523be98a98f7a6883c6868, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 768785445}
+      addedObject: {fileID: 768785450}
   m_SourcePrefab: {fileID: 100100000, guid: a611dedc51523be98a98f7a6883c6868, type: 3}
 --- !u!1 &768785443 stripped
 GameObject:
@@ -1248,21 +1248,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a611dedc51523be98a98f7a6883c6868, type: 3}
   m_PrefabInstance: {fileID: 768785442}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &768785445
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 768785443}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18d6cf4af6788dc398a91c7737c465f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityMaxHealth: 50
-  impactEffect: {fileID: 6386939895303487589, guid: 0eb961f5ed7af0a498fb4a405b87e904, type: 3}
-  damageSound: {fileID: 8300000, guid: 2a6f780f8bcbeee40bf6f96c079009a7, type: 3}
 --- !u!114 &768785446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1341,6 +1326,32 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &768785450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 768785443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18d6cf4af6788dc398a91c7737c465f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityMaxHealth: 50
+  deathFadeDuration: 2
+  impactEffect: {fileID: 6386939895303487589, guid: 0eb961f5ed7af0a498fb4a405b87e904, type: 3}
+  finalExplosion: {fileID: 6386939895303487589, guid: b2ef87e147b29d44497782741c33d1db, type: 3}
+  damageSound: {fileID: 8300000, guid: a00a454231be96749bcb14871f87d8de, type: 3}
+  deathExplosion: {fileID: 8300000, guid: b5ab892cb61fadb47a6d8950bd3d2a86, type: 3}
+  deathSounds:
+  - {fileID: 8300000, guid: 84bef1fd6ebf2814aa7c6319e92768e0, type: 3}
+  - {fileID: 8300000, guid: faa7116d282b5a2419cac168161354db, type: 3}
+  - {fileID: 8300000, guid: d82f491a8f80165418ef2186c031e862, type: 3}
+  - {fileID: 8300000, guid: 89af18d1f0c51d84caae763caa64c52b, type: 3}
+  - {fileID: 8300000, guid: 9ac1cfeff69ac744d914b82189f35492, type: 3}
+  - {fileID: 8300000, guid: 71c864d2b160c5048b57456b0ae6ad98, type: 3}
+  - {fileID: 8300000, guid: c2e7b716f28291b48ace340f84540abf, type: 3}
 --- !u!1 &777053906
 GameObject:
   m_ObjectHideFlags: 0
@@ -2613,7 +2624,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: a611dedc51523be98a98f7a6883c6868, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -13.7
+      value: -5.9
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a611dedc51523be98a98f7a6883c6868, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2680,7 +2691,7 @@ PrefabInstance:
       addedObject: {fileID: 1587217421}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a611dedc51523be98a98f7a6883c6868, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1587217420}
+      addedObject: {fileID: 1587217425}
   m_SourcePrefab: {fileID: 100100000, guid: a611dedc51523be98a98f7a6883c6868, type: 3}
 --- !u!1 &1587217418 stripped
 GameObject:
@@ -2692,21 +2703,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a611dedc51523be98a98f7a6883c6868, type: 3}
   m_PrefabInstance: {fileID: 1587217417}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1587217420
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1587217418}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18d6cf4af6788dc398a91c7737c465f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityMaxHealth: 50
-  impactEffect: {fileID: 6386939895303487589, guid: 0eb961f5ed7af0a498fb4a405b87e904, type: 3}
-  damageSound: {fileID: 8300000, guid: 2a6f780f8bcbeee40bf6f96c079009a7, type: 3}
 --- !u!114 &1587217421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2785,6 +2781,32 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1587217425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1587217418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18d6cf4af6788dc398a91c7737c465f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityMaxHealth: 50
+  deathFadeDuration: 2
+  impactEffect: {fileID: 6386939895303487589, guid: 0eb961f5ed7af0a498fb4a405b87e904, type: 3}
+  finalExplosion: {fileID: 6386939895303487589, guid: b2ef87e147b29d44497782741c33d1db, type: 3}
+  damageSound: {fileID: 8300000, guid: a00a454231be96749bcb14871f87d8de, type: 3}
+  deathExplosion: {fileID: 8300000, guid: b5ab892cb61fadb47a6d8950bd3d2a86, type: 3}
+  deathSounds:
+  - {fileID: 8300000, guid: 84bef1fd6ebf2814aa7c6319e92768e0, type: 3}
+  - {fileID: 8300000, guid: faa7116d282b5a2419cac168161354db, type: 3}
+  - {fileID: 8300000, guid: d82f491a8f80165418ef2186c031e862, type: 3}
+  - {fileID: 8300000, guid: 89af18d1f0c51d84caae763caa64c52b, type: 3}
+  - {fileID: 8300000, guid: 9ac1cfeff69ac744d914b82189f35492, type: 3}
+  - {fileID: 8300000, guid: 71c864d2b160c5048b57456b0ae6ad98, type: 3}
+  - {fileID: 8300000, guid: c2e7b716f28291b48ace340f84540abf, type: 3}
 --- !u!1 &1602175706
 GameObject:
   m_ObjectHideFlags: 0
@@ -2992,8 +3014,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityMaxHealth: 50
+  deathFadeDuration: 2
   impactEffect: {fileID: 6386939895303487589, guid: 0eb961f5ed7af0a498fb4a405b87e904, type: 3}
-  damageSound: {fileID: 8300000, guid: 2a6f780f8bcbeee40bf6f96c079009a7, type: 3}
+  finalExplosion: {fileID: 6386939895303487589, guid: b2ef87e147b29d44497782741c33d1db, type: 3}
+  damageSound: {fileID: 8300000, guid: a00a454231be96749bcb14871f87d8de, type: 3}
+  deathExplosion: {fileID: 8300000, guid: b5ab892cb61fadb47a6d8950bd3d2a86, type: 3}
+  deathSounds:
+  - {fileID: 8300000, guid: 84bef1fd6ebf2814aa7c6319e92768e0, type: 3}
+  - {fileID: 8300000, guid: faa7116d282b5a2419cac168161354db, type: 3}
+  - {fileID: 8300000, guid: d82f491a8f80165418ef2186c031e862, type: 3}
+  - {fileID: 8300000, guid: 89af18d1f0c51d84caae763caa64c52b, type: 3}
+  - {fileID: 8300000, guid: 9ac1cfeff69ac744d914b82189f35492, type: 3}
+  - {fileID: 8300000, guid: 71c864d2b160c5048b57456b0ae6ad98, type: 3}
+  - {fileID: 8300000, guid: c2e7b716f28291b48ace340f84540abf, type: 3}
 --- !u!1 &1628309136
 GameObject:
   m_ObjectHideFlags: 0

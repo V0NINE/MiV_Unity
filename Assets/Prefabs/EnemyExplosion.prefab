@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8974944577013729686}
   - component: {fileID: 1917173159932224043}
   m_Layer: 0
-  m_Name: ImpactHealth
+  m_Name: EnemyExplosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -751,7 +751,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 1.5
+      value: 5
       mode: 0
       spread: 0
       speed:
