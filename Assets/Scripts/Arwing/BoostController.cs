@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BoostController : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class BoostController : MonoBehaviour
     private float normalFOV;
     private float currentBoostTime = 0f;
     private bool isBoosting;
+
+    public Image boostBar; 
 
     // Entities gestionats pel controlador global EntityManager
     private EntityManager entityManager;
@@ -30,6 +33,8 @@ public class BoostController : MonoBehaviour
 
 	boostEffect = GetComponent<BoostEffect>();
 	audioManager = FindFirstObjectByType<AudioManager>();
+
+	UpdateBoostUI();
     }
 
     void Update()
@@ -48,6 +53,7 @@ public class BoostController : MonoBehaviour
         if (isBoosting)
         {
             currentBoostTime += Time.deltaTime;
+	    UpdateBoostUI();
 
             // Si el boost supera la durada màxima, finalitza el boost 
             if (currentBoostTime >= boostDuration)
@@ -56,7 +62,10 @@ public class BoostController : MonoBehaviour
             }
         }
 	else if(!isBoosting && currentBoostTime > 0)
+	{
 	    currentBoostTime -= Time.deltaTime * 1.2f;
+	    UpdateBoostUI();
+	}
     }
 
     void StartBoost()
@@ -87,5 +96,11 @@ public class BoostController : MonoBehaviour
 	boostEffect.EndBoostEffect();
 
         isBoosting = false;
+    }
+
+    void UpdateBoostUI()
+    {
+	if(boostBar != null)
+	    boostBar.fillAmount = (float)currentBoostTime/boostDuration;
     }
 }

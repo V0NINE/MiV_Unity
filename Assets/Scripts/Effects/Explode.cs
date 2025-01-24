@@ -6,6 +6,7 @@ public class Explode : MonoBehaviour
 
     public GameObject explosionEffect;
     private AudioManager audioManager;
+    GameObject effect = null;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -23,25 +24,18 @@ public class Explode : MonoBehaviour
     {
 	if(!other.CompareTag(ARWING_TAG))
 	{
-	    if (explosionEffect != null) Instantiate(explosionEffect, transform.position, transform.rotation);
-	
+	    if (explosionEffect != null)
+		effect = Instantiate(explosionEffect, transform.position, transform.rotation);
+   	    	
             // Destrueix la bomba quan xoca amb qualsevol objecte
             Destroy(gameObject);
 	    audioManager.PlayBoombSound();
-	}
-	
-	/*if(effect != null)
-	{
-	    ParticleSystem particles = effect.GetComponent<ParticlesSystem>();
+
+	    ParticleSystem particles = effect.GetComponent<ParticleSystem>();
 	    if(particles != null)
-	    {
-		particles.Stop();
 		Destroy(effect, particles.main.duration);
-	    }
 	    else
-	    {
-		Destroy(effect);
-	    }
-	}*/
+		Destroy(effect, 1f);
+	}
     }
 }

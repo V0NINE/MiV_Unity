@@ -15,7 +15,6 @@ public class ProjectileDamage : MonoBehaviour
 	    {
 		entityHealth.TakeDamage(projectileDamage);
 		Destroy(gameObject);
-		Debug.Log("I shall be destroyed");
 	    }
 	}
     }

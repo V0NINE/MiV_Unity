@@ -5,7 +5,10 @@ public class BombsController : MonoBehaviour
 
     BombSpawner bombSpawner;
 
-    public int amountOfBombs = 5;
+    public Animator animator;
+
+    public int maxBombs = 1;
+    private int amountOfBombs;
     public float bombCooldown = 3f;
     float cooldown = 0f;
 
@@ -13,6 +16,7 @@ public class BombsController : MonoBehaviour
     void Start()
     {
     	bombSpawner = GetComponent<BombSpawner>();    
+	amountOfBombs = maxBombs;
     }
 
     // Update is called once per frame
@@ -20,11 +24,11 @@ public class BombsController : MonoBehaviour
     {
 	if(amountOfBombs > 0 && Input.GetMouseButtonDown(2))
 	{
-	    Debug.Log("You should spawn some bombs");
     	    bombSpawner.SpawnBomb();    
+	    animator.SetTrigger("BombShot");
 	    amountOfBombs--;
 	}
-	if(amountOfBombs < 5)
+	if(amountOfBombs < maxBombs)
 	{
 	    cooldown += Time.deltaTime;
 	    if(cooldown >= bombCooldown)
