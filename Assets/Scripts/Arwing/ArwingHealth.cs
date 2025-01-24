@@ -9,6 +9,12 @@ public class ArwingHealth : MonoBehaviour
     public int maxLives = 2;
     public int currentLives;
 
+    [Header("Configuración de Escudo")]
+    public int maxShield = 100;
+    public int currentShield;
+    public Image shieldBar; // Arrastra la imagen ShieldFill aquí
+    public AudioClip shieldBreakSound; // Sonido cuando el escudo se rompe
+
     [Header("Regeneración de Salud")]
     public float regenDelay = 1f;         // Tiempo tras el último daño para empezar a regenerar
     public int healAmountPerSecond = 10;  // Cantidad de salud recuperada por segundo
@@ -39,6 +45,7 @@ public class ArwingHealth : MonoBehaviour
 
     void Awake()
     {
+        currentShield = maxShield;
         currentHealth = maxHealth;
         currentLives = maxLives; // Asegurar que se inicializa antes que LifeUIManager
     }
@@ -61,6 +68,7 @@ public class ArwingHealth : MonoBehaviour
         }
         damageEffect = FindFirstObjectByType<DamageEffect>();
         UpdateHealthUI();
+        UpdateShieldUI();
     }
 
     public void TakeDamage(int damage)
@@ -74,6 +82,47 @@ public class ArwingHealth : MonoBehaviour
         lastDamageTime = Time.time; // Registra el momento del último daño
 
 
+        // Primero aplicar daño al escudo
+        int remainingDamage = ApplyDamageToShield(damage);
+
+        // Si queda daño después del escudo, aplicar a la salud
+        if (remainingDamage > 0)
+        {
+            ApplyDamageToHealth(remainingDamage);
+        }
+
+        UpdateHealthUI();
+        UpdateShieldUI();
+    }
+
+    private int ApplyDamageToShield(int damage)
+    {
+        Debug.Log("Shield hit! Previous shield: " + currentShield);
+        if (currentShield <= 0) return damage;
+        currentShield = Mathf.Clamp(currentShield - damage, 0, maxShield);
+
+        Debug.Log("Current shield: " + currentShield);
+
+        if (damageEffect != null && currentShield > 0)
+        {
+            damageEffect.TriggerShieldDamageEffect();
+            Debug.Log("Damage effect triggered");
+        }
+
+        // Reproducir sonido de escudo roto si se acaba de romper
+        if (currentShield <= 0)
+        {
+            if (audioSource != null && shieldBreakSound != null)
+            {
+                audioSource.PlayOneShot(shieldBreakSound);
+            }
+        }
+
+        return 0;
+    }
+
+    private void ApplyDamageToHealth(int damage)
+    {
         Debug.Log("Player hit! Previous health: " + currentHealth);
         Debug.Log("Damage taken: " + damage);
 
@@ -81,25 +130,21 @@ public class ArwingHealth : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
         Debug.Log("Current health: " + currentHealth);
-        
 
         if (damageEffect != null && currentHealth > 0)
         {
-            damageEffect.TriggerDamageEffect();
+            damageEffect.TriggerHealthDamageEffect();
             Debug.Log("Damage effect triggered");
-        } 
-
-
-        UpdateHealthUI();
+        }
 
         if (currentHealth <= 0)
         {
             LoseLife();
-        } else
+        }
+        else
         {
             regenCoroutine = StartCoroutine(RegenHealth());
         }
-        
     }
 
     System.Collections.IEnumerator RegenHealth()
@@ -119,6 +164,14 @@ public class ArwingHealth : MonoBehaviour
             yield return new WaitForSeconds(healInterval);
         }
 
+    }
+
+    void UpdateShieldUI()
+    {
+        if (shieldBar != null)
+        {
+            shieldBar.fillAmount = (float)currentShield / maxShield;
+        }
     }
 
     void UpdateHealthUI()

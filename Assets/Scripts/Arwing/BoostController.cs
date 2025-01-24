@@ -101,6 +101,6 @@ public class BoostController : MonoBehaviour
     void UpdateBoostUI()
     {
 	if(boostBar != null)
-	    boostBar.fillAmount = (float)currentBoostTime/boostDuration;
+	    boostBar.fillAmount = 1 - (float)currentBoostTime/boostDuration;
     }
 }
