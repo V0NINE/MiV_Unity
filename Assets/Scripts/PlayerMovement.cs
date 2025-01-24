@@ -9,6 +9,13 @@ public class PlayerMovement : MonoBehaviour
 
     Rigidbody rb;
 
+    private float oscillationTime = 0.0f;
+    private bool isMoving = false;
+
+    public float oscillationSpeed = 2.5f;   
+    public float oscillationAmplitude = 0.05f; 
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -20,13 +27,30 @@ public class PlayerMovement : MonoBehaviour
     {
         float horizontal = Input.GetAxis("Horizontal");
 	float vertical = Input.GetAxis("Vertical");
-	
-	rb.linearVelocity = new Vector3(horizontal, vertical, 0) * speed;
+
+        if (horizontal != 0 || vertical != 0) isMoving = true;
+        else isMoving = false;
+
+        rb.linearVelocity = new Vector3(horizontal, vertical, 0) * speed;
 
 	if(horizontal != 0) HorizontalLean(horizontal);
 	if(vertical != 0) VerticalLean(vertical);
 
 	ClampPosition();
+        if (!isMoving)
+        {
+            Oscillate(transform);
+        }
+    }
+
+    void Oscillate(Transform transform)
+    {
+        // Hacer oscilación con una función de seno
+        oscillationTime += Time.deltaTime * oscillationSpeed;
+        float oscillation = Mathf.Sin(oscillationTime) * oscillationAmplitude;
+
+        // Aplicar la oscilación en el eje Y
+        transform.position = new Vector3(transform.position.x, transform.position.y + oscillation, transform.position.z);
     }
 
     void ClampPosition()

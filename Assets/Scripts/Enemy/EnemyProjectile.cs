@@ -10,7 +10,7 @@ public class EnemyProjectile : MonoBehaviour
 
     private void Start()
     {
-        playerHealth = FindFirstObjectByType<ArwingHealth>();
+        playerHealth = FindFirstObjectByType<ArwingHealth>();   
     }
 
     void Update()
