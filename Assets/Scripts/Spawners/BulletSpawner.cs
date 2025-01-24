@@ -10,6 +10,7 @@ public class BulletSpawner : MonoBehaviour
     float bullet_lifetime = 2f;
 
     private AudioManager audioManager;
+    private ShotEffect shotEffect;
    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -17,22 +18,32 @@ public class BulletSpawner : MonoBehaviour
        spawn = new Transform[2] {left, right};
 
        audioManager = FindFirstObjectByType<AudioManager>();
+       shotEffect = FindFirstObjectByType<ShotEffect>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0)) SpawnBullet(left);
-	if(Input.GetMouseButtonDown(1)) SpawnBullet(right);
+        if(Input.GetMouseButtonDown(0))
+	{
+	    SpawnBullet(left);
+	    shotEffect.DoShotEffect(left);
+	}
+	if(Input.GetMouseButtonDown(1))
+	{
+	    SpawnBullet(right);
+	    shotEffect.DoShotEffect(right);
+	}
     }
 
     void SpawnBullet(Transform spawn_point) 
     {
 	//foreach (Transform spawn_point in spawn)
 	//{
-		GameObject bullet = Instantiate(bullet_prefab, spawn_point.position, Quaternion.Euler(spawn_point.rotation.x+90f, 
-												      spawn_point.rotation.y, 
-												      spawn_point.rotation.z));
+	   Debug.Log("Rotacio del armwing: ");
+		GameObject bullet = Instantiate(bullet_prefab, spawn_point.position, Quaternion.Euler(spawn_point.rotation.eulerAngles.x+90f, 
+												      spawn_point.rotation.eulerAngles.y, 
+												      0f));
 		Rigidbody rb = bullet.GetComponent<Rigidbody>();
 
 		if(rb != null) rb.AddForce(spawn_point.forward * spawn_force, ForceMode.Impulse);

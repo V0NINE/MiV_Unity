@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isMoving = false;
 
     public float oscillationSpeed = 2.5f;   
-    public float oscillationAmplitude = 0.05f; 
+    public float oscillationAmplitude = 0.002f; 
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

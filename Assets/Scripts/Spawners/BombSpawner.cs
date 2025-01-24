@@ -16,11 +16,11 @@ public class BombSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-    	if(Input.GetMouseButtonDown(2)) SpawnBomb();    
     }
 
-    void SpawnBomb()
+    public void SpawnBomb()
     {
+	Debug.Log("Spawning bomb ma G");
 	GameObject bomb = Instantiate(bomb_prefab, spawner.position, spawner.rotation);
 	Rigidbody rb = bomb.GetComponent<Rigidbody>();
 

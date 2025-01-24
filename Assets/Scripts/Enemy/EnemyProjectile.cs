@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class EnemyProjectile : MonoBehaviour
 {
+    private const string ENEMY_TAG = "Enemy";
+
     public int damage = 10;
     public float speed = 30f; // Velocidad alta (30 unidades/segundo)
     private ArwingHealth playerHealth;
@@ -40,7 +42,7 @@ public class EnemyProjectile : MonoBehaviour
             }
             Destroy(gameObject);
         }
-        else if (!other.CompareTag("Enemy")) // Evitar colisión con otros proyectiles/enemigos
+        else if (!other.CompareTag(ENEMY_TAG)) // Evitar colisión con otros proyectiles/enemigos
         {
             Destroy(gameObject);
         }

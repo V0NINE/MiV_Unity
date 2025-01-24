@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Explode : MonoBehaviour
 {
+    private const string ARWING_TAG = "Player";
 
     public GameObject explosionEffect;
     private AudioManager audioManager;
@@ -20,11 +21,14 @@ public class Explode : MonoBehaviour
 
     void OnTriggerEnter(Collider other) // S'executa quan un altre objecte entra en el trigger
     {
-	if (explosionEffect != null) Instantiate(explosionEffect, transform.position, transform.rotation);
+	if(!other.CompareTag(ARWING_TAG))
+	{
+	    if (explosionEffect != null) Instantiate(explosionEffect, transform.position, transform.rotation);
 	
-        // Destrueix la bomba quan xoca amb qualsevol objecte
-        Destroy(gameObject);
-	audioManager.PlayBoombSound();
+            // Destrueix la bomba quan xoca amb qualsevol objecte
+            Destroy(gameObject);
+	    audioManager.PlayBoombSound();
+	}
 	
 	/*if(effect != null)
 	{
