@@ -1261,6 +1261,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityMaxHealth: 50
+  impactEffect: {fileID: 6386939895303487589, guid: 0eb961f5ed7af0a498fb4a405b87e904, type: 3}
+  damageSound: {fileID: 8300000, guid: 2a6f780f8bcbeee40bf6f96c079009a7, type: 3}
 --- !u!114 &768785446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2703,6 +2705,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityMaxHealth: 50
+  impactEffect: {fileID: 6386939895303487589, guid: 0eb961f5ed7af0a498fb4a405b87e904, type: 3}
+  damageSound: {fileID: 8300000, guid: 2a6f780f8bcbeee40bf6f96c079009a7, type: 3}
 --- !u!114 &1587217421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2988,6 +2992,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityMaxHealth: 50
+  impactEffect: {fileID: 6386939895303487589, guid: 0eb961f5ed7af0a498fb4a405b87e904, type: 3}
+  damageSound: {fileID: 8300000, guid: 2a6f780f8bcbeee40bf6f96c079009a7, type: 3}
 --- !u!1 &1628309136
 GameObject:
   m_ObjectHideFlags: 0

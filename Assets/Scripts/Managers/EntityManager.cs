@@ -8,7 +8,7 @@ public class EntityManager : MonoBehaviour
     {
         speedMultiplier = multiplier;
 
-        foreach (var entity in FindObjectsByType<EntityAproximate>(FindObjectsSortMode.None))
+        foreach (var entity in FindObjectsByType<EnemyAproximate>(FindObjectsSortMode.None))
         {
             entity.SetSpeedMultiplier(speedMultiplier);
         }

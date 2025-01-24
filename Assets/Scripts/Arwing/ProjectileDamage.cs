@@ -9,11 +9,12 @@ public class ProjectileDamage : MonoBehaviour
     {
 	if(other.CompareTag("Enemy"))
 	{
-	    EntityHealth entityHealth = other.GetComponent<EntityHealth>();
+	    EnemyHealth entityHealth = other.GetComponent<EnemyHealth>();
 
 	    if(entityHealth != null)
 	    {
-		entityHealth.TakeDamage(projectileDamage);
+                Vector3 impactPoint = other.ClosestPoint(transform.position);
+                entityHealth.TakeDamage(projectileDamage, impactPoint);
 		Destroy(gameObject);
 	    }
 	}

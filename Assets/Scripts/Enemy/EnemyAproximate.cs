@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EntityAproximate : MonoBehaviour
+public class EnemyAproximate : MonoBehaviour
 {
 
     [SerializeField] float baseSpeed = 15f;
