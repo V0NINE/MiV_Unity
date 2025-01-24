@@ -71,7 +71,7 @@ public class ArwingHealth : MonoBehaviour
         UpdateShieldUI();
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, Vector3 impactPoint)
     {
         if (regenCoroutine != null)
         {
@@ -83,19 +83,19 @@ public class ArwingHealth : MonoBehaviour
 
 
         // Primero aplicar daño al escudo
-        int remainingDamage = ApplyDamageToShield(damage);
+        int remainingDamage = ApplyDamageToShield(damage, impactPoint);
 
         // Si queda daño después del escudo, aplicar a la salud
         if (remainingDamage > 0)
         {
-            ApplyDamageToHealth(remainingDamage);
+            ApplyDamageToHealth(remainingDamage, impactPoint);
         }
 
         UpdateHealthUI();
         UpdateShieldUI();
     }
 
-    private int ApplyDamageToShield(int damage)
+    private int ApplyDamageToShield(int damage, Vector3 impactPoint)
     {
         Debug.Log("Shield hit! Previous shield: " + currentShield);
         if (currentShield <= 0) return damage;
@@ -105,7 +105,7 @@ public class ArwingHealth : MonoBehaviour
 
         if (damageEffect != null && currentShield > 0)
         {
-            damageEffect.TriggerShieldDamageEffect();
+            damageEffect.TriggerShieldDamageEffect(impactPoint);
             Debug.Log("Damage effect triggered");
         }
 
@@ -121,7 +121,7 @@ public class ArwingHealth : MonoBehaviour
         return 0;
     }
 
-    private void ApplyDamageToHealth(int damage)
+    private void ApplyDamageToHealth(int damage, Vector3 impactPoint)
     {
         Debug.Log("Player hit! Previous health: " + currentHealth);
         Debug.Log("Damage taken: " + damage);
@@ -133,7 +133,7 @@ public class ArwingHealth : MonoBehaviour
 
         if (damageEffect != null && currentHealth > 0)
         {
-            damageEffect.TriggerHealthDamageEffect();
+            damageEffect.TriggerHealthDamageEffect(impactPoint);
             Debug.Log("Damage effect triggered");
         }
 

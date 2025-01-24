@@ -28,17 +28,8 @@ public class EnemyProjectile : MonoBehaviour
             if (playerHealth != null)
             {
                 Debug.Log("Player hit by enemy projectile");
-                playerHealth.TakeDamage(damage);
-            }
-            if (impactEffect != null)
-            {
-                Vector3 collisionPoint = other.ClosestPoint(transform.position);
-                Quaternion explosionRotation = Quaternion.LookRotation(collisionPoint - transform.position);
-                GameObject explosion = Instantiate(impactEffect, collisionPoint, explosionRotation);
-
-                // Destruir el efecto después de 1 segundo
-                Destroy(explosion, 1f);
-                AudioSource.PlayClipAtPoint(explosionSound, collisionPoint, 1f);
+                Vector3 impactPoint = other.ClosestPoint(transform.position);
+                playerHealth.TakeDamage(damage, impactPoint);
             }
             Destroy(gameObject);
         }

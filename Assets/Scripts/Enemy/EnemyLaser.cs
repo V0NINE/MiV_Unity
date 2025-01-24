@@ -12,7 +12,8 @@ public class EnemyLaser : MonoBehaviour
             ArwingHealth arwingHealth = other.GetComponent<ArwingHealth>();
             if (arwingHealth != null)
             {
-                arwingHealth.TakeDamage(damage); // Pasa 20 de daño
+                Vector3 impactPoint = other.ClosestPoint(transform.position);
+                arwingHealth.TakeDamage(damage, impactPoint); // Pasa 20 de daño
             }
             Destroy(gameObject);
         }

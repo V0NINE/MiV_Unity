@@ -151,10 +151,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1d46ae4d90492d4d892943105df851c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 15
-  speed: 20
-  impactEffect: {fileID: 1087343523888217570, guid: 611f81962d798d043b8be7dcf3adbeb4, type: 3}
-  explosionSound: {fileID: 8300000, guid: 268ae122313795445b2ef29599182b51, type: 3}
+  damage: 50
+  speed: 30
 --- !u!82 &6882425135456597746
 AudioSource:
   m_ObjectHideFlags: 0
