@@ -16,7 +16,7 @@ public class BoostController : MonoBehaviour
     public Image boostBar; 
 
     // Entities gestionats pel controlador global EntityManager
-    private EntityManager entityManager;
+    private EnemyManager entityManager;
 
     private LandTextureScroller landScroller;
 
@@ -28,7 +28,7 @@ public class BoostController : MonoBehaviour
         // FOV original de la càmera
         normalFOV = mainCamera.fieldOfView;
 
-       	entityManager = FindFirstObjectByType<EntityManager>();
+       	entityManager = FindFirstObjectByType<EnemyManager>();
 	landScroller = FindFirstObjectByType<LandTextureScroller>();
 
 	boostEffect = GetComponent<BoostEffect>();

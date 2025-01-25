@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EntityManager : MonoBehaviour
+public class EnemyManager : MonoBehaviour
 {
     private float speedMultiplier = 1f;
 

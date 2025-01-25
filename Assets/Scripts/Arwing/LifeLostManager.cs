@@ -21,13 +21,14 @@ public class LifeLostManager : MonoBehaviour
 
     private ArwingHealth playerHealth;
 
-    public AudioClip countDownSound;
+    private AudioManager audioManager;
 
     void Start()
     {
         playerHealth = FindFirstObjectByType<ArwingHealth>();
         countdownDisplay.gameObject.SetActive(false);
         livesDisplay.gameObject.SetActive(false);
+        audioManager = FindFirstObjectByType<AudioManager>();
     }
 
     public void StartLifeLostSequence(int remainingLives)
@@ -58,9 +59,7 @@ public class LifeLostManager : MonoBehaviour
         countdownDisplay.gameObject.SetActive(true);
 
         // reproduce countdown sound
-        AudioSource audioSource = GetComponent<AudioSource>();
-        audioSource.clip = countDownSound;
-        audioSource.Play();
+        audioManager.PlayCountdownSound();
 
         for (int i = 3; i >= 0; i--)
         {

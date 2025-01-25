@@ -13,7 +13,6 @@ public class ArwingHealth : MonoBehaviour
     public int maxShield = 100;
     public int currentShield;
     public Image shieldBar; // Arrastra la imagen ShieldFill aquí
-    public AudioClip shieldBreakSound; // Sonido cuando el escudo se rompe
 
     [Header("Regeneración de Salud")]
     public float regenDelay = 1f;         // Tiempo tras el último daño para empezar a regenerar
@@ -40,8 +39,7 @@ public class ArwingHealth : MonoBehaviour
 
     [Header("Game Over Config")]
     public Image gameOverImage; // Arrastra tu imagen de Game Over del Canvas aquí
-    public AudioClip gameOverSound; // Arrastra el sonido de Mortal Kombat aquí
-    private AudioSource audioSource;
+    private AudioManager audioManager;
 
     void Awake()
     {
@@ -52,11 +50,7 @@ public class ArwingHealth : MonoBehaviour
 
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
-        if (audioSource == null)
-        {
-            audioSource = gameObject.AddComponent<AudioSource>();
-        }
+        audioManager = FindFirstObjectByType<AudioManager>();
 
         // Asegurar que el Time.timeScale es 1 al inicio
         Time.timeScale = 1f;
@@ -103,7 +97,7 @@ public class ArwingHealth : MonoBehaviour
 
         Debug.Log("Current shield: " + currentShield);
 
-        if (damageEffect != null && currentShield > 0)
+        if (damageEffect != null)
         {
             damageEffect.TriggerShieldDamageEffect(impactPoint);
             Debug.Log("Damage effect triggered");
@@ -112,10 +106,7 @@ public class ArwingHealth : MonoBehaviour
         // Reproducir sonido de escudo roto si se acaba de romper
         if (currentShield <= 0)
         {
-            if (audioSource != null && shieldBreakSound != null)
-            {
-                audioSource.PlayOneShot(shieldBreakSound);
-            }
+            audioManager.PlayShieldBreakSound();
         }
 
         return 0;
@@ -205,11 +196,7 @@ public class ArwingHealth : MonoBehaviour
     {
         Debug.Log("Game Over!");
 
-        // Detener música
-        if (AudioManager.Instance != null)
-        {
-            AudioManager.Instance.StopMusic();
-        }
+        audioManager.StopMusic();
 
         // Verificación adicional antes de mostrar
         if (gameOverImage != null && !gameOverImage.gameObject.activeSelf)
@@ -219,12 +206,7 @@ public class ArwingHealth : MonoBehaviour
             gameOverImage.color = opaqueColor;
             gameOverImage.gameObject.SetActive(true);
 
-            // Reproducir sonido solo si no se está reproduciendo ya
-            if (!audioSource.isPlaying && gameOverSound != null)
-            {
-                audioSource.volume = AudioManager.Instance.musicVolume;
-                audioSource.PlayOneShot(gameOverSound);
-            }
+            audioManager.PlayGameOverSound();
 
             // Pausar el juego y activar cursor
             Time.timeScale = 0f;

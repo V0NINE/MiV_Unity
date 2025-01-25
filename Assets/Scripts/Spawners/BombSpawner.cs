@@ -7,10 +7,12 @@ public class BombSpawner : MonoBehaviour
     public Transform spawner;
     float spawn_force = 16f;
 
+    private AudioManager audioManager;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        audioManager = FindFirstObjectByType<AudioManager>();
     }
 
     // Update is called once per frame
@@ -25,6 +27,8 @@ public class BombSpawner : MonoBehaviour
 
 	if(rb != null) rb.AddForce(spawner.forward * spawn_force, ForceMode.Impulse);
 
-	Destroy(bomb, 3);
+        audioManager.PlayBombLaunchSound();
+
+        Destroy(bomb, 3);
     }
 }

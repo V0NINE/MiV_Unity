@@ -11,23 +11,17 @@ public class EnemyHealth : MonoBehaviour
 
     public GameObject impactEffect;
     public GameObject finalExplosion;
-    public AudioClip damageSound;
-    public AudioClip deathExplosion;
-    public AudioClip[] deathSounds;
-    private AudioSource audioSource;
 
     private bool isDying = false;
     private List<Material> enemyMaterials = new List<Material>();
     private List<Color> originalColors = new List<Color>();
 
+    private AudioManager audioManager;
+
     void Start()
     {
         entityHealth = entityMaxHealth;
-        audioSource = GetComponent<AudioSource>();
-        if (audioSource == null)
-        {
-            audioSource = gameObject.AddComponent<AudioSource>();
-        }
+        audioManager = FindFirstObjectByType<AudioManager>();
 
         // Obtener todos los materiales del enemigo
         Renderer[] renderers = GetComponentsInChildren<Renderer>();
@@ -54,16 +48,11 @@ public class EnemyHealth : MonoBehaviour
             Destroy(explosion, 1f);
         }
 
-        audioSource.PlayOneShot(damageSound);
+        audioManager.PlayEnemyDamageSound();
 
         if (entityHealth <= 0)
         {
-            // play random death sound
-            if (deathSounds.Length > 0)
-            {
-                int randomIndex = Random.Range(0, deathSounds.Length);
-                audioSource.PlayOneShot(deathSounds[randomIndex]);
-            }
+            audioManager.PlayEnemyDeathSound();
             StartCoroutine(DeathAnimation());
         }
     }
@@ -106,10 +95,7 @@ public class EnemyHealth : MonoBehaviour
             mat.color = Color.black;
         }
 
-        if (deathExplosion != null)
-        {
-            audioSource.PlayOneShot(deathExplosion);
-        }
+        audioManager.PlayEnemyExplosionSound();
 
         if (finalExplosion != null)
         {

@@ -1,4 +1,5 @@
-    using UnityEngine;
+using System.Runtime.CompilerServices;
+using UnityEngine;
     using UnityEngine.UI;
 
     public class DamageEffect : MonoBehaviour
@@ -8,26 +9,22 @@
         public float fadeDuration = 1f; // Tiempo para desaparecer el efecto
         public Color damageHealthColor = new Color(1, 0, 0, 0.3f); // Rojo semitransparente
         public Color damageShieldColor = new Color(0, 175, 255, 0.3f); // Azul cián semitransparente
-        public AudioClip damageShieldSound; // Sonido cuando el escudo recibe daño
-        public AudioClip damageHealthSound; // Sonido cuando la salud recibe daño
-        private AudioSource audioSource;
         public GameObject impactHealthEffect;
         public GameObject impactShieldEffect;
 
         private Coroutine fadeCoroutine;
 
-        void Start()
+    private AudioManager audioManager;
+
+    void Start()
         {
             // Asegurarse que el overlay está invisible al inicio
             if (damageOverlay != null)
                 damageOverlay.color = Color.clear;
 
-            audioSource = GetComponent<AudioSource>();
-            if (audioSource == null)
-            {
-                audioSource = gameObject.AddComponent<AudioSource>();
-            }
-        }
+            audioManager = FindFirstObjectByType<AudioManager>();
+
+    }
 
         public void TriggerHealthDamageEffect(Vector3 impactPoint)
         {
@@ -50,8 +47,8 @@
                 Destroy(explosion, 1f);
         }
 
-            // reproduce sound
-            audioSource.PlayOneShot(damageHealthSound);
+        // reproduce sound
+        audioManager.PlayHealthDamageSound();
 
             fadeCoroutine = StartCoroutine(FadeOut());
         }
@@ -74,8 +71,8 @@
                 Destroy(explosion, 1f);
         }
 
-            // reproduce sound
-            audioSource.PlayOneShot(damageShieldSound);
+        // reproduce sound
+        audioManager.PlayShieldDamageSound();
 
             fadeCoroutine = StartCoroutine(FadeOut());
         }

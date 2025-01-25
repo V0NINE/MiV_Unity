@@ -7,8 +7,8 @@ public class EnemyProjectile : MonoBehaviour
     public int damage = 10;
     public float speed = 30f; // Velocidad alta (30 unidades/segundo)
     private ArwingHealth playerHealth;
-    public GameObject impactEffect; 
-    public AudioClip explosionSound;
+
+   
 
     private void Start()
     {

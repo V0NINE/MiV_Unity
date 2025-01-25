@@ -6,8 +6,11 @@ public class EnemyShooter : MonoBehaviour
     public Transform firePoint;
     public float fireRate = 1f;
 
+    private AudioManager audioManager;
+
     void Start()
     {
+        audioManager = FindFirstObjectByType<AudioManager>();
         StartCoroutine(ShootingRoutine());
     }
 
@@ -16,6 +19,7 @@ public class EnemyShooter : MonoBehaviour
         while (true)
         {
             Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
+            audioManager.PlayEnemyShotSound();
             yield return new WaitForSeconds(fireRate);
         }
     }

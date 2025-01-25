@@ -258,13 +258,43 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backgroundMusic: {fileID: 8300000, guid: 08c36818222ab4e18ae14688bf0bdad0, type: 3}
-  musicVolume: 0.25
   musicLoop: 1
   bombSound: {fileID: 8300000, guid: f7165775c4c3b67459ecbf39011c21fd, type: 3}
+  bombLaunchSound: {fileID: 8300000, guid: 48e3fb4393826c04294cc38db0db2223, type: 3}
   boostSound: {fileID: 8300000, guid: 5cccd0bd8a2ab6c91b39fb5490249e57, type: 3}
   boostFadeSound: {fileID: 8300000, guid: e41d473992575a649b2503f97e13d870, type: 3}
   laserSound: {fileID: 8300000, guid: f78c2b032b84320bb8407eba76074320, type: 3}
+  shieldDamage: {fileID: 8300000, guid: 3a3691e19d84c3140b4b33d89a524eae, type: 3}
+  shieldBreakSound: {fileID: 8300000, guid: f8fc69e9f9d3e274992427cde8bb8467, type: 3}
+  healthDamageSound: {fileID: 8300000, guid: 268ae122313795445b2ef29599182b51, type: 3}
+  gameOverSound: {fileID: 8300000, guid: 2ffef7dbdc0166ef7b6c9565f6e83163, type: 3}
+  countdownSound: {fileID: 8300000, guid: 451c787968471ef4a9845b11b6c21d35, type: 3}
+  enemyDamageSound: {fileID: 8300000, guid: a00a454231be96749bcb14871f87d8de, type: 3}
+  enemyExplosionSound: {fileID: 8300000, guid: b5ab892cb61fadb47a6d8950bd3d2a86, type: 3}
+  deathSounds:
+  - {fileID: 8300000, guid: c2e7b716f28291b48ace340f84540abf, type: 3}
+  - {fileID: 8300000, guid: faa7116d282b5a2419cac168161354db, type: 3}
+  - {fileID: 8300000, guid: d82f491a8f80165418ef2186c031e862, type: 3}
+  - {fileID: 8300000, guid: 89af18d1f0c51d84caae763caa64c52b, type: 3}
+  - {fileID: 8300000, guid: 9ac1cfeff69ac744d914b82189f35492, type: 3}
+  - {fileID: 8300000, guid: 71c864d2b160c5048b57456b0ae6ad98, type: 3}
+  - {fileID: 8300000, guid: 84bef1fd6ebf2814aa7c6319e92768e0, type: 3}
+  enemyShotSound: {fileID: 8300000, guid: 027f1547f116f7ab9906f8221d2f5488, type: 3}
+  musicVolume: 0.25
   laserVolume: 0.3
+  boostVolume: 0.5
+  boostFadeVolume: 0.5
+  bombVolume: 0.5
+  bombLaunchVolume: 0.5
+  shieldDamageVolume: 0.5
+  shieldBreakVolume: 0.5
+  healthDamageVolume: 0.5
+  gameOverVolume: 0.5
+  countdownVolume: 0.35
+  enemyDamageVolume: 1
+  enemyExplosionVolume: 0.75
+  enemyDeathVolume: 0.25
+  enemyShotVolume: 0.25
 --- !u!4 &140672919
 Transform:
   m_ObjectHideFlags: 0
@@ -919,7 +949,6 @@ MonoBehaviour:
   maxShield: 100
   currentShield: 0
   shieldBar: {fileID: 1525666829}
-  shieldBreakSound: {fileID: 8300000, guid: f8fc69e9f9d3e274992427cde8bb8467, type: 3}
   regenDelay: 1
   healAmountPerSecond: 10
   healInterval: 0.1
@@ -927,7 +956,6 @@ MonoBehaviour:
   respawnPoint: {fileID: 0}
   lifeLostManager: {fileID: 1526482794}
   gameOverImage: {fileID: 1846275420}
-  gameOverSound: {fileID: 8300000, guid: 2ffef7dbdc0166ef7b6c9565f6e83163, type: 3}
 --- !u!114 &562601954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1342,16 +1370,6 @@ MonoBehaviour:
   deathFadeDuration: 2
   impactEffect: {fileID: 6386939895303487589, guid: 0eb961f5ed7af0a498fb4a405b87e904, type: 3}
   finalExplosion: {fileID: 6386939895303487589, guid: b2ef87e147b29d44497782741c33d1db, type: 3}
-  damageSound: {fileID: 8300000, guid: a00a454231be96749bcb14871f87d8de, type: 3}
-  deathExplosion: {fileID: 8300000, guid: b5ab892cb61fadb47a6d8950bd3d2a86, type: 3}
-  deathSounds:
-  - {fileID: 8300000, guid: 84bef1fd6ebf2814aa7c6319e92768e0, type: 3}
-  - {fileID: 8300000, guid: faa7116d282b5a2419cac168161354db, type: 3}
-  - {fileID: 8300000, guid: d82f491a8f80165418ef2186c031e862, type: 3}
-  - {fileID: 8300000, guid: 89af18d1f0c51d84caae763caa64c52b, type: 3}
-  - {fileID: 8300000, guid: 9ac1cfeff69ac744d914b82189f35492, type: 3}
-  - {fileID: 8300000, guid: 71c864d2b160c5048b57456b0ae6ad98, type: 3}
-  - {fileID: 8300000, guid: c2e7b716f28291b48ace340f84540abf, type: 3}
 --- !u!1 &777053906
 GameObject:
   m_ObjectHideFlags: 0
@@ -2274,8 +2292,6 @@ MonoBehaviour:
   fadeDuration: 1
   damageHealthColor: {r: 1, g: 0, b: 0, a: 0.3}
   damageShieldColor: {r: 0, g: 175, b: 255, a: 0.3}
-  damageShieldSound: {fileID: 8300000, guid: 3a3691e19d84c3140b4b33d89a524eae, type: 3}
-  damageHealthSound: {fileID: 8300000, guid: 268ae122313795445b2ef29599182b51, type: 3}
   impactHealthEffect: {fileID: 6386939895303487589, guid: 0eb961f5ed7af0a498fb4a405b87e904, type: 3}
   impactShieldEffect: {fileID: 1087343523888217570, guid: 965efd48e9f2ccf4ea51ac5032facfe1, type: 3}
 --- !u!4 &1263800005
@@ -2797,16 +2813,6 @@ MonoBehaviour:
   deathFadeDuration: 2
   impactEffect: {fileID: 6386939895303487589, guid: 0eb961f5ed7af0a498fb4a405b87e904, type: 3}
   finalExplosion: {fileID: 6386939895303487589, guid: b2ef87e147b29d44497782741c33d1db, type: 3}
-  damageSound: {fileID: 8300000, guid: a00a454231be96749bcb14871f87d8de, type: 3}
-  deathExplosion: {fileID: 8300000, guid: b5ab892cb61fadb47a6d8950bd3d2a86, type: 3}
-  deathSounds:
-  - {fileID: 8300000, guid: 84bef1fd6ebf2814aa7c6319e92768e0, type: 3}
-  - {fileID: 8300000, guid: faa7116d282b5a2419cac168161354db, type: 3}
-  - {fileID: 8300000, guid: d82f491a8f80165418ef2186c031e862, type: 3}
-  - {fileID: 8300000, guid: 89af18d1f0c51d84caae763caa64c52b, type: 3}
-  - {fileID: 8300000, guid: 9ac1cfeff69ac744d914b82189f35492, type: 3}
-  - {fileID: 8300000, guid: 71c864d2b160c5048b57456b0ae6ad98, type: 3}
-  - {fileID: 8300000, guid: c2e7b716f28291b48ace340f84540abf, type: 3}
 --- !u!1 &1602175706
 GameObject:
   m_ObjectHideFlags: 0
@@ -3017,16 +3023,6 @@ MonoBehaviour:
   deathFadeDuration: 2
   impactEffect: {fileID: 6386939895303487589, guid: 0eb961f5ed7af0a498fb4a405b87e904, type: 3}
   finalExplosion: {fileID: 6386939895303487589, guid: b2ef87e147b29d44497782741c33d1db, type: 3}
-  damageSound: {fileID: 8300000, guid: a00a454231be96749bcb14871f87d8de, type: 3}
-  deathExplosion: {fileID: 8300000, guid: b5ab892cb61fadb47a6d8950bd3d2a86, type: 3}
-  deathSounds:
-  - {fileID: 8300000, guid: 84bef1fd6ebf2814aa7c6319e92768e0, type: 3}
-  - {fileID: 8300000, guid: faa7116d282b5a2419cac168161354db, type: 3}
-  - {fileID: 8300000, guid: d82f491a8f80165418ef2186c031e862, type: 3}
-  - {fileID: 8300000, guid: 89af18d1f0c51d84caae763caa64c52b, type: 3}
-  - {fileID: 8300000, guid: 9ac1cfeff69ac744d914b82189f35492, type: 3}
-  - {fileID: 8300000, guid: 71c864d2b160c5048b57456b0ae6ad98, type: 3}
-  - {fileID: 8300000, guid: c2e7b716f28291b48ace340f84540abf, type: 3}
 --- !u!1 &1628309136
 GameObject:
   m_ObjectHideFlags: 0
