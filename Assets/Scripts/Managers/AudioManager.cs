@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
@@ -24,16 +26,17 @@ public class AudioManager : MonoBehaviour
     [Header("Laser")]
     public AudioClip laserSound;
     private AudioSource laserSource;
+    private Queue<AudioSource> laserAudioPool = new();
 
     [Header("Shield")]
     public AudioClip shieldDamage;
-    private AudioSource shieldDamageSource;
+    private Queue<AudioSource> shieldDamagePool = new();
     public AudioClip shieldBreakSound;
     private AudioSource shieldBreakSource;
 
     [Header("Health")]
     public AudioClip healthDamageSound;
-    private AudioSource healthDamageSource;
+    private Queue<AudioSource> healthDamagePool = new();
 
     [Header("Game Over")]
     public AudioClip gameOverSound;
@@ -45,13 +48,16 @@ public class AudioManager : MonoBehaviour
 
     [Header("Enemy")]
     public AudioClip enemyDamageSound;
-    private AudioSource enemyDamageSource;
+    private Queue<AudioSource> enemyDamagePool = new();
     public AudioClip enemyExplosionSound;
     private AudioSource enemyExplosionSource;
     public AudioClip[] deathSounds;
     private AudioSource enemyDeathSource;
     private AudioSource enemyShotSource;
     public AudioClip enemyShotSound;
+
+    private const int POOL_SIZE = 5;
+
 
     [Header("Configuración")]
     [Range(0, 1)] public float musicVolume = 0.5f;
@@ -77,11 +83,63 @@ public class AudioManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
             InitializeAllAudioSources();
+            InitializeLaserSound();
+            InitializeShieldDamageSound(); 
+            InitializeHealthDamageSound(); 
+            InitializeEnemyDamageSound();  
             PlayMusic();
         }
         else
         {
             Destroy(gameObject);
+        }
+    }
+
+    void InitializeLaserSound()
+    {
+        for (int i = 0; i < POOL_SIZE; i++)
+        {
+            AudioSource source = gameObject.AddComponent<AudioSource>();
+            source.clip = laserSound;
+            source.volume = laserVolume;
+            source.playOnAwake = false;
+            laserAudioPool.Enqueue(source);
+        }
+    }
+
+    void InitializeShieldDamageSound()
+    {
+        for (int i = 0; i < POOL_SIZE; i++)
+        {
+            AudioSource source = gameObject.AddComponent<AudioSource>();
+            source.clip = shieldDamage;
+            source.volume = shieldDamageVolume;
+            source.playOnAwake = false;
+            shieldDamagePool.Enqueue(source);
+        }
+    }
+
+    void InitializeHealthDamageSound()
+    {
+        for (int i = 0; i < POOL_SIZE; i++)
+        {
+            AudioSource source = gameObject.AddComponent<AudioSource>();
+            source.clip = healthDamageSound;
+            source.volume = healthDamageVolume;
+            source.playOnAwake = false;
+            healthDamagePool.Enqueue(source);
+        }
+    }
+
+    void InitializeEnemyDamageSound()
+    {
+        for (int i = 0; i < POOL_SIZE; i++)
+        {
+            AudioSource source = gameObject.AddComponent<AudioSource>();
+            source.clip = enemyDamageSound;
+            source.volume = enemyDamageVolume;
+            source.playOnAwake = false;
+            enemyDamagePool.Enqueue(source);
         }
     }
 
@@ -102,11 +160,8 @@ public class AudioManager : MonoBehaviour
         laserSource = CreateAudioSource(laserSound, laserVolume);
 
         // Shield
-        shieldDamageSource = CreateAudioSource(shieldDamage, shieldDamageVolume);
         shieldBreakSource = CreateAudioSource(shieldBreakSound, shieldBreakVolume);
 
-        // Health
-        healthDamageSource = CreateAudioSource(healthDamageSound, healthDamageVolume);
 
         // Game Over
         gameOverSource = CreateAudioSource(gameOverSound, gameOverVolume);
@@ -115,7 +170,6 @@ public class AudioManager : MonoBehaviour
         countdownSource = CreateAudioSource(countdownSound, countdownVolume);
 
         // Enemy
-        enemyDamageSource = CreateAudioSource(enemyDamageSound, enemyDamageVolume);
         enemyExplosionSource = CreateAudioSource(enemyExplosionSound, enemyExplosionVolume);
         enemyDeathSource = CreateAudioSource(null, enemyDeathVolume);
         enemyShotSource = CreateAudioSource(enemyShotSound, enemyShotVolume);
@@ -129,6 +183,73 @@ public class AudioManager : MonoBehaviour
         source.loop = loop;
         source.playOnAwake = false;
         return source;
+    }
+
+    public void PlayShieldDamageSound()
+    {
+        PlayWithPool(shieldDamagePool, shieldDamage, shieldDamageVolume);
+    }
+
+    public void PlayHealthDamageSound()
+    {
+        PlayWithPool(healthDamagePool, healthDamageSound, healthDamageVolume);
+    }
+
+    public void PlayEnemyDamageSound()
+    {
+        PlayWithPool(enemyDamagePool, enemyDamageSound, enemyDamageVolume);
+    }
+
+    private void PlayWithPool(Queue<AudioSource> pool, AudioClip clip, float volume)
+    {
+        AudioSource source = GetAvailableSource(pool, clip);
+        source.volume = volume;
+        source.Play();
+        StartCoroutine(ReturnToPool(pool, source, clip.length));
+    }
+
+    private AudioSource GetAvailableSource(Queue<AudioSource> pool, AudioClip clip)
+    {
+        if (pool.Count > 0) return pool.Dequeue();
+
+        // Si el pool está vacío, crear nueva fuente dinámicamente
+        AudioSource newSource = gameObject.AddComponent<AudioSource>();
+        newSource.clip = clip;
+        newSource.playOnAwake = false;
+        return newSource;
+    }
+
+    private IEnumerator ReturnToPool(Queue<AudioSource> pool, AudioSource source, float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        source.Stop();
+        pool.Enqueue(source);
+    }
+
+    public void PlayLaserSound()
+    {
+        if (laserAudioPool.Count > 0)
+        {
+            AudioSource source = laserAudioPool.Dequeue();
+            source.Play();
+            StartCoroutine(ReturnToLaserPool(source));
+        }
+        else
+        {
+            // Crear nuevo AudioSource dinámicamente si se necesita
+            AudioSource newSource = gameObject.AddComponent<AudioSource>();
+            newSource.clip = laserSound;
+            newSource.volume = laserVolume;
+            newSource.Play();
+            StartCoroutine(ReturnToLaserPool(newSource));
+        }
+    }
+
+    private IEnumerator ReturnToLaserPool(AudioSource source)
+    {
+        yield return new WaitForSeconds(laserSound.length);
+        source.Stop();
+        laserAudioPool.Enqueue(source);
     }
 
     public void PlayMusic()
@@ -152,13 +273,9 @@ public class AudioManager : MonoBehaviour
     public void PlayBoostSound() => PlaySound(boostSource);
     public void StopBoostSound() => StopSound(boostSource);
     public void PlayBoostFadeSound() => PlaySound(boostFadeSource);
-    public void PlayLaserSound() => PlaySound(laserSource);
     public void PlayShieldBreakSound() => PlaySound(shieldBreakSource);
-    public void PlayShieldDamageSound() => PlaySound(shieldDamageSource);
     public void PlayGameOverSound() => PlaySound(gameOverSource);
-    public void PlayHealthDamageSound() => PlaySound(healthDamageSource);
     public void PlayCountdownSound() => PlaySound(countdownSource);
-    public void PlayEnemyDamageSound() => PlaySound(enemyDamageSource);
     public void PlayEnemyExplosionSound() => PlaySound(enemyExplosionSource);
 
     public void PlayEnemyDeathSound()
@@ -195,14 +312,37 @@ public class AudioManager : MonoBehaviour
     public void UpdateBoostFadeVolume(float volume) => UpdateVolume(ref boostFadeVolume, boostFadeSource, volume);
     public void UpdateBombVolume(float volume) => UpdateVolume(ref bombVolume, bombSource, volume);
     public void UpdateBombLaunchVolume(float volume) => UpdateVolume(ref bombLaunchVolume, bombLaunchSource, volume);
-    public void UpdateShieldDamageVolume(float volume) => UpdateVolume(ref shieldDamageVolume, shieldDamageSource, volume);
     public void UpdateShieldBreakVolume(float volume) => UpdateVolume(ref shieldBreakVolume, shieldBreakSource, volume);
-    public void UpdateHealthDamageVolume(float volume) => UpdateVolume(ref healthDamageVolume, healthDamageSource, volume);
     public void UpdateGameOverVolume(float volume) => UpdateVolume(ref gameOverVolume, gameOverSource, volume);
     public void UpdateCountdownVolume(float volume) => UpdateVolume(ref countdownVolume, countdownSource, volume);
-    public void UpdateEnemyDamageVolume(float volume) => UpdateVolume(ref enemyDamageVolume, enemyDamageSource, volume);
     public void UpdateEnemyExplosionVolume(float volume) => UpdateVolume(ref enemyExplosionVolume, enemyExplosionSource, volume);
     public void UpdateEnemyDeathVolume(float volume) => UpdateVolume(ref enemyDeathVolume, enemyDeathSource, volume);
+
+    public void UpdateShieldDamageVolume(float volume)
+    {
+        shieldDamageVolume = Mathf.Clamp01(volume);
+        UpdatePoolVolume(shieldDamagePool, shieldDamageVolume);
+    }
+
+    public void UpdateHealthDamageVolume(float volume)
+    {
+        healthDamageVolume = Mathf.Clamp01(volume);
+        UpdatePoolVolume(healthDamagePool, healthDamageVolume);
+    }
+
+    public void UpdateEnemyDamageVolume(float volume)
+    {
+        enemyDamageVolume = Mathf.Clamp01(volume);
+        UpdatePoolVolume(enemyDamagePool, enemyDamageVolume);
+    }
+
+    private void UpdatePoolVolume(Queue<AudioSource> pool, float newVolume)
+    {
+        foreach (var source in pool)
+        {
+            if (source != null) source.volume = newVolume;
+        }
+    }
 
     private void UpdateVolume(ref float configVolume, AudioSource source, float newVolume)
     {
