@@ -9,7 +9,6 @@ public class EffectsManager : MonoBehaviour
     public class EffectPool
     {
         public GameObject prefab;
-        public int poolSize = 10;
         public Transform parentContainer;
         [HideInInspector] public Queue<GameObject> pool = new Queue<GameObject>();
     }
@@ -60,12 +59,7 @@ public class EffectsManager : MonoBehaviour
 
     void InitializePool(EffectPool pool)
     {
-        for (int i = 0; i < pool.poolSize; i++)
-        {
-            GameObject obj = Instantiate(pool.prefab, pool.parentContainer);
-            obj.SetActive(false);
-            pool.pool.Enqueue(obj);
-        }
+        // Vacío - Los objetos se crearán bajo demanda
     }
 
     public void PlayBoostEffect(bool isBigBoost)
@@ -122,14 +116,18 @@ public class EffectsManager : MonoBehaviour
 
     private GameObject GetEffectFromPool(EffectPool pool)
     {
-        if (pool.pool.Count > 0)
+        // Buscar primero en objetos ya creados pero inactivos
+        foreach (GameObject obj in pool.pool)
         {
-            GameObject obj = pool.pool.Dequeue();
-            activeEffectsMap[obj] = pool;
-            return obj;
+            if (!obj.activeSelf)
+            {
+                obj.SetActive(true);
+                activeEffectsMap[obj] = pool;
+                return obj;
+            }
         }
 
-        // Dynamic pool growth
+        // Si no hay disponibles, crear nuevo
         GameObject newObj = Instantiate(pool.prefab, pool.parentContainer);
         activeEffectsMap[newObj] = pool;
         return newObj;
@@ -143,7 +141,7 @@ public class EffectsManager : MonoBehaviour
         effect.transform.SetParent(pool.parentContainer);
         ResetParticleSystem(effect);
 
-        pool.pool.Enqueue(effect);
+        // No añadir a la cola, se maneja por estado active/inactive
         activeEffectsMap.Remove(effect);
     }
 
