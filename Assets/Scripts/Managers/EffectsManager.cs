@@ -16,7 +16,6 @@ public class EffectsManager : MonoBehaviour
 
     [Header("Player Effects")]
     public EffectPool boostEffect;
-    public EffectPool bulletImpactEffect;
     public EffectPool healthDamageEffect;
     public EffectPool shieldDamageEffect;
 
@@ -53,7 +52,6 @@ public class EffectsManager : MonoBehaviour
     {
         InitializePool(boostEffect);
         InitializePool(smallBoostEffect);
-        InitializePool(bulletImpactEffect);
         InitializePool(healthDamageEffect);
         InitializePool(shieldDamageEffect);
         InitializePool(bombExplosion);
@@ -112,14 +110,7 @@ public class EffectsManager : MonoBehaviour
         PlayEffectAtPosition(poolToUse, position);
     }
 
-    public void PlayBulletImpact(Vector3 position, Transform parent = null)
-    {
-        GameObject effect = GetEffectFromPool(bulletImpactEffect);
-        effect.transform.position = position;
-        if (parent != null) effect.transform.SetParent(parent);
-        effect.SetActive(true);
-        StartCoroutine(ReturnEffectAfterTime(bulletImpactEffect, effect, defaultEffectDuration));
-    }
+   
 
     private void PlayEffectAtPosition(EffectPool pool, Vector3 position)
     {

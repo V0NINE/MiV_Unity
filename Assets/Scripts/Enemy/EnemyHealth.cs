@@ -9,9 +9,6 @@ public class EnemyHealth : MonoBehaviour
     private int entityHealth;
     public float deathFadeDuration = 2f;
 
-    public GameObject impactEffect;
-    public GameObject finalExplosion;
-
     private bool isDying = false;
     private List<Material> enemyMaterials = new List<Material>();
     private List<Color> originalColors = new List<Color>();
@@ -41,12 +38,7 @@ public class EnemyHealth : MonoBehaviour
 
         entityHealth -= damage;
 
-        if (impactEffect != null)
-        {
-            Quaternion explosionRotation = Quaternion.LookRotation(impactPoint - transform.position);
-            GameObject explosion = Instantiate(impactEffect, impactPoint, explosionRotation);
-            Destroy(explosion, 1f);
-        }
+        EffectsManager.Instance.PlayDamageEffect(impactPoint, false); // Daño a la salud
 
         audioManager.PlayEnemyDamageSound();
 
@@ -97,11 +89,7 @@ public class EnemyHealth : MonoBehaviour
 
         audioManager.PlayEnemyExplosionSound();
 
-        if (finalExplosion != null)
-        {
-            GameObject finalExpl = Instantiate(finalExplosion, transform.position, Quaternion.identity);
-            Destroy(finalExpl, 2f);
-        }
+        EffectsManager.Instance.PlayExplosion(transform.position, false); // Explosión enemiga
 
         Destroy(gameObject, 1.5f);
     }

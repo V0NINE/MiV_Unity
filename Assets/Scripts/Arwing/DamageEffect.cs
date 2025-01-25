@@ -9,8 +9,6 @@ using UnityEngine;
         public float fadeDuration = 1f; // Tiempo para desaparecer el efecto
         public Color damageHealthColor = new Color(1, 0, 0, 0.3f); // Rojo semitransparente
         public Color damageShieldColor = new Color(0, 175, 255, 0.3f); // Azul cián semitransparente
-        public GameObject impactHealthEffect;
-        public GameObject impactShieldEffect;
 
         private Coroutine fadeCoroutine;
 
@@ -37,15 +35,9 @@ using UnityEngine;
             Debug.Log("Damage effect triggering");
             // Reiniciar color y empezar fade
             damageOverlay.color = damageHealthColor;
-        
 
-            if (impactHealthEffect != null)
-            {
-                Quaternion explosionRotation = Quaternion.LookRotation(impactPoint - transform.position);
-                GameObject explosion = Instantiate(impactHealthEffect, impactPoint, explosionRotation);
 
-                Destroy(explosion, 1f);
-        }
+            EffectsManager.Instance.PlayDamageEffect(impactPoint, false); // Daño a la salud
 
         // reproduce sound
         audioManager.PlayHealthDamageSound();
@@ -63,13 +55,7 @@ using UnityEngine;
             // Reiniciar color y empezar fade
             damageOverlay.color = damageShieldColor;
 
-            if (impactShieldEffect != null)
-            {
-                Quaternion explosionRotation = Quaternion.LookRotation(impactPoint - transform.position);
-                GameObject explosion = Instantiate(impactShieldEffect, impactPoint, explosionRotation);
-        
-                Destroy(explosion, 1f);
-        }
+        EffectsManager.Instance.PlayDamageEffect(impactPoint, true); // Daño al escudo
 
         // reproduce sound
         audioManager.PlayShieldDamageSound();

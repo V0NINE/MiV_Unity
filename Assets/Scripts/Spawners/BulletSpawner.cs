@@ -5,20 +5,15 @@ public class BulletSpawner : MonoBehaviour
     public GameObject bullet_prefab;
     public Transform left;
     public Transform right;
-    Transform[] spawn;
     float spawn_force = 10f;
     float bullet_lifetime = 2f;
 
     private AudioManager audioManager;
-    private PlayerShotEffect shotEffect;
    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-       spawn = new Transform[2] {left, right};
-
        audioManager = FindFirstObjectByType<AudioManager>();
-       shotEffect = FindFirstObjectByType<PlayerShotEffect>();
     }
 
     // Update is called once per frame
@@ -27,12 +22,10 @@ public class BulletSpawner : MonoBehaviour
         if(Input.GetMouseButtonDown(0))
 	{
 	    SpawnBullet(left);
-	    shotEffect.DoShotEffect(left);
 	}
 	if(Input.GetMouseButtonDown(1))
 	{
 	    SpawnBullet(right);
-	    shotEffect.DoShotEffect(right);
 	}
     }
 

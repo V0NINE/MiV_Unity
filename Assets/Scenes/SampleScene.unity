@@ -905,10 +905,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99812ae6264d2137b87b7471fa90ab16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  left: {fileID: 1332830725}
-  right: {fileID: 810954212}
-  boostEffect: {fileID: 3580562554555582605, guid: b720c9f24de318aea9af8b9ae9b2eaf5, type: 3}
-  smallBoostEffect: {fileID: 3580562554555582605, guid: 4cf8c37b455683004bbee3a1aa2577bb, type: 3}
 --- !u!65 &562601952
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -955,19 +951,6 @@ MonoBehaviour:
   healthBar: {fileID: 919568282}
   respawnPoint: {fileID: 0}
   gameOverImage: {fileID: 1846275420}
---- !u!114 &562601954
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 562601938}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 191e117da6a004c92b43368565cbab66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shotEffect: {fileID: 9217561135982047956, guid: a09296cef931cdeaf9d575d8b89bcdb1, type: 3}
 --- !u!114 &562601955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1061,8 +1044,6 @@ MonoBehaviour:
   fadeDuration: 1
   damageHealthColor: {r: 1, g: 0, b: 0, a: 0.3}
   damageShieldColor: {r: 0, g: 175, b: 255, a: 0.3}
-  impactHealthEffect: {fileID: 6386939895303487589, guid: 0eb961f5ed7af0a498fb4a405b87e904, type: 3}
-  impactShieldEffect: {fileID: 1087343523888217570, guid: 965efd48e9f2ccf4ea51ac5032facfe1, type: 3}
 --- !u!114 &562601961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1411,8 +1392,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityMaxHealth: 50
   deathFadeDuration: 2
-  impactEffect: {fileID: 6386939895303487589, guid: 0eb961f5ed7af0a498fb4a405b87e904, type: 3}
-  finalExplosion: {fileID: 6386939895303487589, guid: b2ef87e147b29d44497782741c33d1db, type: 3}
 --- !u!1 &777053906
 GameObject:
   m_ObjectHideFlags: 0
@@ -1449,7 +1428,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0.000030517578, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 489, y: 275}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &777053908
@@ -1694,9 +1673,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c8ea7fc39b2b574a7b5789125888a907, type: 3}
       insertIndex: -1
       addedObject: {fileID: 562601955}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c8ea7fc39b2b574a7b5789125888a907, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 562601954}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c8ea7fc39b2b574a7b5789125888a907, type: 3}
       insertIndex: -1
       addedObject: {fileID: 562601948}
@@ -2158,6 +2134,79 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1023205380}
   m_CullTransparentMesh: 1
+--- !u!1 &1101916403
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1101916405}
+  - component: {fileID: 1101916404}
+  m_Layer: 0
+  m_Name: EffectsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1101916404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1101916403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 841028b49b33ca1409bebeb02b80cb57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boostEffect:
+    prefab: {fileID: 3580562554555582605, guid: b720c9f24de318aea9af8b9ae9b2eaf5, type: 3}
+    poolSize: 10
+    parentContainer: {fileID: 0}
+  healthDamageEffect:
+    prefab: {fileID: 6386939895303487589, guid: 0eb961f5ed7af0a498fb4a405b87e904, type: 3}
+    poolSize: 10
+    parentContainer: {fileID: 0}
+  shieldDamageEffect:
+    prefab: {fileID: 1087343523888217570, guid: 965efd48e9f2ccf4ea51ac5032facfe1, type: 3}
+    poolSize: 10
+    parentContainer: {fileID: 0}
+  bombExplosion:
+    prefab: {fileID: 4362946896125942542, guid: 93a0e84e37e8366f4aff9164b916fc31, type: 3}
+    poolSize: 10
+    parentContainer: {fileID: 0}
+  enemyExplosion:
+    prefab: {fileID: 6386939895303487589, guid: b2ef87e147b29d44497782741c33d1db, type: 3}
+    poolSize: 10
+    parentContainer: {fileID: 0}
+  boostSpawnPoints:
+  - {fileID: 1332830725}
+  - {fileID: 810954212}
+  smallBoostEffect:
+    prefab: {fileID: 3580562554555582605, guid: 4cf8c37b455683004bbee3a1aa2577bb, type: 3}
+    poolSize: 10
+    parentContainer: {fileID: 0}
+  defaultEffectDuration: 2
+  boostEffectSizeMultiplier: 0.5
+--- !u!4 &1101916405
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1101916403}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1118185197
 GameObject:
   m_ObjectHideFlags: 0
@@ -2555,7 +2604,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -4.9999695, y: 30}
+  m_AnchoredPosition: {x: -5, y: 30}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 0}
 --- !u!95 &1548218146
@@ -2799,8 +2848,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityMaxHealth: 50
   deathFadeDuration: 2
-  impactEffect: {fileID: 6386939895303487589, guid: 0eb961f5ed7af0a498fb4a405b87e904, type: 3}
-  finalExplosion: {fileID: 6386939895303487589, guid: b2ef87e147b29d44497782741c33d1db, type: 3}
 --- !u!1 &1602175706
 GameObject:
   m_ObjectHideFlags: 0
@@ -3009,8 +3056,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityMaxHealth: 50
   deathFadeDuration: 2
-  impactEffect: {fileID: 6386939895303487589, guid: 0eb961f5ed7af0a498fb4a405b87e904, type: 3}
-  finalExplosion: {fileID: 6386939895303487589, guid: b2ef87e147b29d44497782741c33d1db, type: 3}
 --- !u!1 &1628309136
 GameObject:
   m_ObjectHideFlags: 0
@@ -3428,7 +3473,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.000030517578, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 489, y: 275}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1945106375
@@ -3486,3 +3531,4 @@ SceneRoots:
   - {fileID: 140672919}
   - {fileID: 1587217417}
   - {fileID: 768785442}
+  - {fileID: 1101916405}
