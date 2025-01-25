@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ShotEffect : MonoBehaviour
+public class PlayerShotEffect : MonoBehaviour
 {
 
     public GameObject shotEffect;

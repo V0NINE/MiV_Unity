@@ -22,9 +22,6 @@ public class ArwingHealth : MonoBehaviour
     [Header("UI de Vida")]
     public Image healthBar; // Arrastra la imagen HealthFill aquí
 
-    [Header("Efectos")]
-    private DamageEffect damageEffect;
-
     [Header("Respawn")]
     public Transform respawnPoint;
 
@@ -34,8 +31,8 @@ public class ArwingHealth : MonoBehaviour
 
     public event System.Action OnLivesChanged;
 
-    [Header("Secuencia de pérdida de vida")]
-    public LifeLostManager lifeLostManager;
+    private DamageEffect damageEffect;
+    private LifeLostManager lifeLostManager;
 
     [Header("Game Over Config")]
     public Image gameOverImage; // Arrastra tu imagen de Game Over del Canvas aquí
@@ -61,6 +58,7 @@ public class ArwingHealth : MonoBehaviour
             gameOverImage.gameObject.SetActive(false);
         }
         damageEffect = FindFirstObjectByType<DamageEffect>();
+        lifeLostManager = FindFirstObjectByType<LifeLostManager>();
         UpdateHealthUI();
         UpdateShieldUI();
     }

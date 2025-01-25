@@ -19,13 +19,10 @@ public class LifeLostManager : MonoBehaviour
     public float animationDuration = 1f;
     public float countdownDuration = 3f;
 
-    private ArwingHealth playerHealth;
-
     private AudioManager audioManager;
 
     void Start()
     {
-        playerHealth = FindFirstObjectByType<ArwingHealth>();
         countdownDisplay.gameObject.SetActive(false);
         livesDisplay.gameObject.SetActive(false);
         audioManager = FindFirstObjectByType<AudioManager>();

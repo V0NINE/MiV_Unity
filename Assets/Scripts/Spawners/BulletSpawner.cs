@@ -10,7 +10,7 @@ public class BulletSpawner : MonoBehaviour
     float bullet_lifetime = 2f;
 
     private AudioManager audioManager;
-    private ShotEffect shotEffect;
+    private PlayerShotEffect shotEffect;
    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -18,7 +18,7 @@ public class BulletSpawner : MonoBehaviour
        spawn = new Transform[2] {left, right};
 
        audioManager = FindFirstObjectByType<AudioManager>();
-       shotEffect = FindFirstObjectByType<ShotEffect>();
+       shotEffect = FindFirstObjectByType<PlayerShotEffect>();
     }
 
     // Update is called once per frame

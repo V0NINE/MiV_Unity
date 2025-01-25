@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Explode : MonoBehaviour
+public class BombExplodeEffect : MonoBehaviour
 {
     private const string ARWING_TAG = "Player";
 
