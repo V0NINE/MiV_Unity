@@ -14,7 +14,6 @@ public class EffectsManager : MonoBehaviour
     }
 
     [Header("Player Effects")]
-    public EffectPool boostEffect;
     public EffectPool healthDamageEffect;
     public EffectPool shieldDamageEffect;
     public EffectPool playerShotEffect;
@@ -25,6 +24,7 @@ public class EffectsManager : MonoBehaviour
 
     [Header("Boost Components")]
     public Transform[] boostSpawnPoints;
+    public EffectPool boostEffect;
     public EffectPool smallBoostEffect;
 
     [Header("Configuration")]

@@ -202,7 +202,7 @@ MonoBehaviour:
   fireRate: 2
   shootingRange: 45
   facePlayerWhenShooting: 1
-  rotationSpeed: 5
+  rotationSpeed: 50
   spawn_force: 10
 --- !u!114 &3738869830852248473
 MonoBehaviour:
