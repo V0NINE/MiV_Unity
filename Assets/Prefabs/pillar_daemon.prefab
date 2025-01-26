@@ -184,6 +184,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseSpeed: 15
   initialZ: 68
+  resetZ: -20
 --- !u!114 &2467572552681147788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,10 +199,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 441387056883845183, guid: b7f6040de4c57484bac401d6834211fa, type: 3}
   firePoint: {fileID: 9004756446913871546}
-  fireRate: 1
-  shootingRange: 20
+  fireRate: 2
+  shootingRange: 45
   facePlayerWhenShooting: 1
   rotationSpeed: 5
+  spawn_force: 10
 --- !u!114 &3738869830852248473
 MonoBehaviour:
   m_ObjectHideFlags: 0

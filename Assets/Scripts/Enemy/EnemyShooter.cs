@@ -6,7 +6,7 @@ public class EnemyShooter : MonoBehaviour
     public GameObject projectilePrefab;
     public Transform firePoint;
     public float fireRate = 2f;
-    public float shootingRange = 20f;
+    public float shootingRange = 45f;
 
     private AudioManager audioManager;
     private Transform playerTransform;
@@ -47,14 +47,9 @@ public class EnemyShooter : MonoBehaviour
 
     void RotateTowardsPlayer()
     {
-        // deactivate enemyaproximate script
-        EnemyAproximate enemyAproximate = GetComponent<EnemyAproximate>();
-        if (enemyAproximate != null)
-        {
-            enemyAproximate.enabled = false;
-        }
-
         Vector3 direction = playerTransform.position - transform.position;
+        direction.y = 0; // Ignora altura para rotación horizontal
+
         Quaternion targetRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(
             transform.rotation,
@@ -62,21 +57,25 @@ public class EnemyShooter : MonoBehaviour
             rotationSpeed * Time.deltaTime
         );
 
-        // reactivate enemyaproximate script
-        if (enemyAproximate != null)
-        {
-            enemyAproximate.enabled = true;
-        }
+        // Asegura que la rotación solo sea en Y
+        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
     }
 
     void Shoot()
     {
-        GameObject bullet = Instantiate(projectilePrefab, firePoint.position, Quaternion.Euler(firePoint.rotation.eulerAngles.x + 90f,
-                                                      firePoint.rotation.eulerAngles.y,
-                                                      0f));
-        Rigidbody rb = bullet.GetComponent<Rigidbody>();
+        // Usa la rotación actual del firePoint manteniendo la inclinación correcta
+        GameObject bullet = Instantiate(
+            projectilePrefab,
+            firePoint.position,
+            firePoint.rotation * Quaternion.Euler(90, 0, 0)
+        );
 
-        if (rb != null) rb.AddForce(firePoint.forward * spawn_force, ForceMode.Impulse);
+        Rigidbody rb = bullet.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            // Dispara en la dirección del firePoint (que sigue al jugador)
+            rb.AddForce(firePoint.forward * spawn_force, ForceMode.Impulse);
+        }
         audioManager.PlayEnemyShotSound();
     }
 }

@@ -2,28 +2,49 @@ using UnityEngine;
 
 public class EnemyAproximate : MonoBehaviour
 {
-
     [SerializeField] float baseSpeed = 15f;
     [SerializeField] float initialZ = 68f;
+    [SerializeField] float resetZ = -20f;
     private float speedMultiplier = 1f;
+    private Vector3 movementAxis = Vector3.back;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-	transform.Translate(0,0,initialZ);
+        ResetPosition();
     }
 
-    // Update is called once per frame
     void Update()
     {
-	transform.Translate(0,0, -baseSpeed * speedMultiplier * Time.deltaTime);
-	
-	if(transform.position.z <= -20)
-	    transform.Translate(0,0,65);
+        MoveEnemy();
+        CheckReset();
+    }
+
+    void MoveEnemy()
+    {
+        // Movimiento independiente de la rotación usando eje global
+        transform.position += movementAxis * baseSpeed * speedMultiplier * Time.deltaTime;
+    }
+
+    void CheckReset()
+    {
+        if (transform.position.z <= resetZ)
+        {
+            ResetPosition();
+        }
+    }
+
+    void ResetPosition()
+    {
+        // Conserva la posición X actual para posibles patrones laterales
+        transform.position = new Vector3(
+            transform.position.x,
+            transform.position.y,
+            initialZ
+        );
     }
 
     public void SetSpeedMultiplier(float multiplier)
     {
-	speedMultiplier = multiplier;
+        speedMultiplier = multiplier;
     }
 }
