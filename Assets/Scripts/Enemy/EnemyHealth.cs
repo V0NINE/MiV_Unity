@@ -14,11 +14,13 @@ public class EnemyHealth : MonoBehaviour
     private List<Color> originalColors = new List<Color>();
 
     private AudioManager audioManager;
+    private LevelController levelController;
 
     void Start()
     {
         entityHealth = entityMaxHealth;
         audioManager = FindFirstObjectByType<AudioManager>();
+        levelController = FindFirstObjectByType<LevelController>();
 
         // Obtener todos los materiales del enemigo
         Renderer[] renderers = GetComponentsInChildren<Renderer>();
@@ -44,6 +46,7 @@ public class EnemyHealth : MonoBehaviour
 
         if (entityHealth <= 0)
         {
+            levelController.OnEnemyKilled();
             audioManager.PlayEnemyDeathSound();
             StartCoroutine(DeathAnimation());
         }

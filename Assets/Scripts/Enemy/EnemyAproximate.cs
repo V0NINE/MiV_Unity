@@ -18,7 +18,7 @@ public class EnemyAproximate : MonoBehaviour
     {
 	transform.Translate(0,0, -baseSpeed * speedMultiplier * Time.deltaTime);
 	
-	if(transform.position.z < -40)
+	if(transform.position.z <= -20)
 	    transform.Translate(0,0,65);
     }
 

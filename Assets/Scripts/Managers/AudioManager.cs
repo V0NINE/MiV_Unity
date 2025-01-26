@@ -55,6 +55,8 @@ public class AudioManager : MonoBehaviour
     private AudioSource enemyDeathSource;
     private AudioSource enemyShotSource;
     public AudioClip enemyShotSound;
+    private AudioSource enemySpottedSource;
+    public AudioClip enemySpottedSound;
 
     private const int POOL_SIZE = 5;
 
@@ -75,6 +77,7 @@ public class AudioManager : MonoBehaviour
     [Range(0, 1)] public float enemyExplosionVolume = 0.5f;
     [Range(0, 1)] public float enemyDeathVolume = 0.5f;
     [Range(0, 1)] public float enemyShotVolume = 0.5f;
+    [Range(0, 1)] public float enemySpottedVolume = 0.5f;
 
     void Awake()
     {
@@ -173,6 +176,7 @@ public class AudioManager : MonoBehaviour
         enemyExplosionSource = CreateAudioSource(enemyExplosionSound, enemyExplosionVolume);
         enemyDeathSource = CreateAudioSource(null, enemyDeathVolume);
         enemyShotSource = CreateAudioSource(enemyShotSound, enemyShotVolume);
+        enemySpottedSource = CreateAudioSource(enemySpottedSound, enemySpottedVolume);
     }
 
     private AudioSource CreateAudioSource(AudioClip clip, float volume, bool loop = false)
@@ -289,6 +293,8 @@ public class AudioManager : MonoBehaviour
 
     public void PlayEnemyShotSound() => PlaySound(enemyShotSource);
 
+    public void PlayEnemySpottedSound() => PlaySound(enemySpottedSource);
+
     private void PlaySound(AudioSource source)
     {
         if (source != null && source.clip != null)
@@ -317,6 +323,8 @@ public class AudioManager : MonoBehaviour
     public void UpdateCountdownVolume(float volume) => UpdateVolume(ref countdownVolume, countdownSource, volume);
     public void UpdateEnemyExplosionVolume(float volume) => UpdateVolume(ref enemyExplosionVolume, enemyExplosionSource, volume);
     public void UpdateEnemyDeathVolume(float volume) => UpdateVolume(ref enemyDeathVolume, enemyDeathSource, volume);
+
+    public void UpdateEnemySpottedVolume(float volume) => UpdateVolume(ref enemySpottedVolume, enemySpottedSource, volume);
 
     public void UpdateShieldDamageVolume(float volume)
     {
