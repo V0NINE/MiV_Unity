@@ -17,6 +17,7 @@ public class EffectsManager : MonoBehaviour
     public EffectPool boostEffect;
     public EffectPool healthDamageEffect;
     public EffectPool shieldDamageEffect;
+    public EffectPool playerShotEffect;
 
     [Header("Explosion Effects")]
     public EffectPool bombExplosion;
@@ -53,6 +54,7 @@ public class EffectsManager : MonoBehaviour
         InitializePool(smallBoostEffect);
         InitializePool(healthDamageEffect);
         InitializePool(shieldDamageEffect);
+        InitializePool(playerShotEffect);
         InitializePool(bombExplosion);
         InitializePool(enemyExplosion);
     }
@@ -104,7 +106,10 @@ public class EffectsManager : MonoBehaviour
         PlayEffectAtPosition(poolToUse, position);
     }
 
-   
+    public void PlayPlayerShotEffect(Vector3 position)
+    {
+        PlayEffectAtPosition(playerShotEffect, position);
+    }
 
     private void PlayEffectAtPosition(EffectPool pool, Vector3 position)
     {

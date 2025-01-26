@@ -112,6 +112,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a611dedc51523be98a98f7a6883c6868, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4612469489169145106}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a611dedc51523be98a98f7a6883c6868, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -3934470235620399511}
   m_SourcePrefab: {fileID: 100100000, guid: a611dedc51523be98a98f7a6883c6868, type: 3}
 --- !u!1 &2601660851383902781 stripped
 GameObject:
@@ -193,9 +196,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1301df3607026f74985aeff99bd32675, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 1491861655838291906, guid: 875681d76b333d1449e5748decbcf64a, type: 3}
+  projectilePrefab: {fileID: 441387056883845183, guid: b7f6040de4c57484bac401d6834211fa, type: 3}
   firePoint: {fileID: 9004756446913871546}
   fireRate: 1
+  shootingRange: 20
+  facePlayerWhenShooting: 1
+  rotationSpeed: 5
 --- !u!114 &3738869830852248473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,10 +228,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ed6a352ddeee884aaa7dd9c0add2ea3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
-  movementBounds: {x: 10, y: 0, z: 10}
   spawnAnimationDuration: 1
   spawnHeight: 20
+  fixedZPosition: 60
+  targetYPosition: -5
+--- !u!114 &-3934470235620399511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2601660851383902781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 599fc532b4248db319bbfb44ce7eab5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &3409546447802562695 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a611dedc51523be98a98f7a6883c6868, type: 3}

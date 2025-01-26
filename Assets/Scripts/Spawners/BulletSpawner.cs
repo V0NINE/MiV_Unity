@@ -22,11 +22,13 @@ public class BulletSpawner : MonoBehaviour
         if(Input.GetMouseButtonDown(0))
 	{
 	    SpawnBullet(left);
+            EffectsManager.Instance.PlayPlayerShotEffect(left.position);
 	}
 	if(Input.GetMouseButtonDown(1))
 	{
 	    SpawnBullet(right);
-	}
+            EffectsManager.Instance.PlayPlayerShotEffect(right.position);
+        }
     }
 
     void SpawnBullet(Transform spawn_point) 

@@ -1941,6 +1941,9 @@ MonoBehaviour:
   shieldDamageEffect:
     prefab: {fileID: 1087343523888217570, guid: 965efd48e9f2ccf4ea51ac5032facfe1, type: 3}
     parentContainer: {fileID: 0}
+  playerShotEffect:
+    prefab: {fileID: 9217561135982047956, guid: a09296cef931cdeaf9d575d8b89bcdb1, type: 3}
+    parentContainer: {fileID: 0}
   bombExplosion:
     prefab: {fileID: 4362946896125942542, guid: 93a0e84e37e8366f4aff9164b916fc31, type: 3}
     parentContainer: {fileID: 0}
