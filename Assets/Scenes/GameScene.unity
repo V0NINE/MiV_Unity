@@ -329,7 +329,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 031f13327922a5edf9b41cebf27b89c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backgroundMusic: {fileID: 8300000, guid: 08c36818222ab4e18ae14688bf0bdad0, type: 3}
+  backgroundCorneriaMusic: {fileID: 8300000, guid: 08c36818222ab4e18ae14688bf0bdad0, type: 3}
+  backgroundSpaceMusic: {fileID: 8300000, guid: 2c41fb33454ee5846a9eee844d78ffc4, type: 3}
   musicLoop: 1
   bombSound: {fileID: 8300000, guid: f7165775c4c3b67459ecbf39011c21fd, type: 3}
   bombLaunchSound: {fileID: 8300000, guid: 48e3fb4393826c04294cc38db0db2223, type: 3}
@@ -2562,13 +2563,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd0c18290b5f0a145aef024607f01a82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemiesPerLevel: 0
+  enemiesPerLevel: 2
   maxGroupSize: 3
   timeBetweenGroups: 5
-  levels: 1
+  levels: 2
   portalPrefab: {fileID: 3871744593774535438, guid: 764cb7573e1e23847b5e367e65aa31ef, type: 3}
   playerTransform: {fileID: 562601947}
   enemyCounterText: {fileID: 1503432799}
+  backgroundPlane: {fileID: 31288921}
+  groundPlane: {fileID: 1628309136}
+  level1BackgroundMaterial: {fileID: 2100000, guid: 842e26d45874a57da9ba2794769376a4, type: 2}
+  level1GroundMaterial: {fileID: 2100000, guid: c5ad6e2230dd2e247a48081eb1f3ff18, type: 2}
+  level2BackgroundMaterial: {fileID: 2100000, guid: c1ba2994cd3734d4fad5b0a38e33aea2, type: 2}
+  level2GroundMaterial: {fileID: 2100000, guid: 967216b7cfe020a43b48f5c667bf3d43, type: 2}
   imageNetherVideo: {fileID: 15500699}
   congratulationsImage: {fileID: 2086547105}
 --- !u!328 &1388980986

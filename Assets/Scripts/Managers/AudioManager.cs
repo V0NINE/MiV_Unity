@@ -7,8 +7,10 @@ public class AudioManager : MonoBehaviour
     public static AudioManager Instance;
 
     [Header("Música")]
-    public AudioClip backgroundMusic;
-    private AudioSource musicSource;
+    public AudioClip backgroundCorneriaMusic;
+    private AudioSource musicCorneriaSource;
+    public AudioClip backgroundSpaceMusic;
+    private AudioSource musicSpaceSource;
     public bool musicLoop = true;
 
     [Header("Bomb")]
@@ -104,7 +106,6 @@ public class AudioManager : MonoBehaviour
             InitializeEnemyDamageSound();
             InitializeNetherPortalSound();
             IntializeNetherPortalEntederSound();
-            PlayMusic();
         }
         else
         {
@@ -183,7 +184,8 @@ public class AudioManager : MonoBehaviour
     private void InitializeAllAudioSources()
     {
         // Música
-        musicSource = CreateAudioSource(backgroundMusic, musicVolume, musicLoop);
+        musicCorneriaSource = CreateAudioSource(backgroundCorneriaMusic, musicVolume, musicLoop);
+        musicSpaceSource = CreateAudioSource(backgroundSpaceMusic, musicVolume, musicLoop);
 
         // Bomb
         bombSource = CreateAudioSource(bombSound, bombVolume);
@@ -300,23 +302,40 @@ public class AudioManager : MonoBehaviour
         laserAudioPool.Enqueue(source);
     }
 
-    public void PlayMusic()
+    public void PlayCorneriaMusic()
     {
-        if (musicSource != null && !musicSource.isPlaying)
+        if (musicCorneriaSource != null && !musicCorneriaSource.isPlaying)
         {
-            musicSource.Play();
+            musicCorneriaSource.Play();
         }
     }
 
    
 
-    public void StopMusic()
+    public void StopCorneriaMusic()
     {
-        if (musicSource != null)
+        if (musicCorneriaSource != null)
         {
-            musicSource.Stop();
+            musicCorneriaSource.Stop();
         }
     }
+
+    public void PlaySpaceMusic()
+    {
+        if (musicSpaceSource != null && !musicSpaceSource.isPlaying)
+        {
+            musicSpaceSource.Play();
+        }
+    }
+
+    public void StopSpaceMusic()
+    {
+        if (musicSpaceSource != null)
+        {
+            musicSpaceSource.Stop();
+        }
+    }
+
 
     public void PlayBoombSound() => PlaySound(bombSource);
     public void PlayBombLaunchSound() => PlaySound(bombLaunchSource);
@@ -361,7 +380,8 @@ public class AudioManager : MonoBehaviour
     }
 
     // Métodos para actualizar volúmenes en tiempo real
-    public void UpdateMusicVolume(float volume) => UpdateVolume(ref musicVolume, musicSource, volume);
+    public void UpdateCorneriaMusicVolume(float volume) => UpdateVolume(ref musicVolume, musicCorneriaSource, volume);
+    public void UpdateSpaceMusicVolume(float volume) => UpdateVolume(ref musicVolume, musicSpaceSource, volume);
     public void UpdateLaserVolume(float volume) => UpdateVolume(ref laserVolume, laserSource, volume);
     public void UpdateBoostVolume(float volume) => UpdateVolume(ref boostVolume, boostSource, volume);
     public void UpdateBoostFadeVolume(float volume) => UpdateVolume(ref boostFadeVolume, boostFadeSource, volume);

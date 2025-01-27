@@ -10,7 +10,7 @@ public class LevelController : MonoBehaviour
     public int enemiesPerLevel = 5;
     public int maxGroupSize = 3;
     public float timeBetweenGroups = 5f;
-    public int levels = 3;
+    public int levels = 2;
 
     [Header("Referencias")]
     private EnemySpawner enemySpawner;
@@ -20,6 +20,17 @@ public class LevelController : MonoBehaviour
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI enemyCounterText;
 
+    [Header("Backgrounds")]
+    public GameObject backgroundPlane;
+    public GameObject groundPlane;
+
+    [Header("Materials")]
+    public Material level1BackgroundMaterial;
+    public Material level1GroundMaterial;
+    public Material level2BackgroundMaterial;
+    public Material level2GroundMaterial;
+
+
 
     private int currentLevel = 0;
     private int enemiesRemaining;
@@ -27,6 +38,7 @@ public class LevelController : MonoBehaviour
     private bool portalSpawned;
     private int enemiesSpawned;
     private int enemiesKilled;
+    private int groupsSpawned = 0;
 
     private AudioManager audioManager;
 
@@ -41,7 +53,7 @@ public class LevelController : MonoBehaviour
             congratulationsImage.gameObject.SetActive(false);
         enemySpawner = FindFirstObjectByType<EnemySpawner>();
         audioManager = FindFirstObjectByType<AudioManager>();
-        audioManager.PlayMusic();
+        audioManager.PlayCorneriaMusic();
         StartCoroutine(DelayedLevelStart());
     }
 
@@ -80,6 +92,8 @@ public class LevelController : MonoBehaviour
         InvokeRepeating(nameof(SpawnEnemyGroup), timeBetweenGroups, timeBetweenGroups);
     }
 
+    
+
     void SpawnEnemyGroup()
     {
         if (enemiesRemaining <= 0 || portalSpawned || enemiesKilled < enemiesSpawned) return;
@@ -89,6 +103,30 @@ public class LevelController : MonoBehaviour
         int groupSize = Mathf.Min(Random.Range(2, maxGroupSize + 1), enemiesRemaining);
         enemySpawner.SpawnEnemyGroup(groupSize);
         enemiesSpawned = groupSize;
+        groupsSpawned++;
+        if (currentLevel > 1 && groupsSpawned == 1)
+            UpdateEnemyStats();
+    }
+
+    void UpdateEnemyStats()
+    {
+        // Aumentar atributos de disparo de los enemigos
+        EnemyShooter[] enemyShooters = FindObjectsByType<EnemyShooter>(FindObjectsSortMode.None);
+        foreach (EnemyShooter shooter in enemyShooters)
+        {
+            shooter.fireRate += 0.5f; // Aumenta la cadencia de disparo
+            shooter.shootingRange += 10f; // Aumenta el rango de disparo
+        }
+
+        // Aumentar la salud de los enemigos
+        EnemyHealth[] enemyHealths = FindObjectsByType<EnemyHealth>(FindObjectsSortMode.None);
+        foreach (EnemyHealth health in enemyHealths)
+        {
+            health.entityMaxHealth += 50; // Aumenta la salud máxima en 50
+        }
+
+        // Aumentar el daño de los proyectiles enemigos
+        EnemyProjectile.damage += 50; // Aumenta el daño base de los proyectiles
     }
 
     public void OnEnemyKilled()
@@ -121,6 +159,7 @@ public class LevelController : MonoBehaviour
 
     public void OnPortalEntered()
     {
+        groupsSpawned = 0;
         Destroy(activePortal.gameObject);
         audioManager.PlayNetherEnteredSound();
 
@@ -130,7 +169,8 @@ public class LevelController : MonoBehaviour
 
     IEnumerator PlayPortalVideo()
     {
-        audioManager.StopMusic();
+        audioManager.StopCorneriaMusic();
+        audioManager.StopSpaceMusic();
         imageNetherVideo.SetActive(true);
         VideoPlayer videoPlayer = GetComponent<VideoPlayer>();
         // Configura y reproduce el video
@@ -144,7 +184,8 @@ public class LevelController : MonoBehaviour
 
         if (currentLevel < levels)
         {
-            audioManager.PlayMusic();
+            ChangeLevelBackgroundAndGround();
+            audioManager.PlaySpaceMusic();
             StartCoroutine(DelayedLevelStart());
             imageNetherVideo.SetActive(false);
         }
@@ -179,5 +220,17 @@ public class LevelController : MonoBehaviour
             }
 
         }
+    }
+
+    void ChangeLevelBackgroundAndGround()
+    {
+        
+        
+           
+            if (backgroundPlane != null)
+                backgroundPlane.GetComponent<Renderer>().material = level2BackgroundMaterial;
+            if (groundPlane != null)
+                groundPlane.GetComponent<Renderer>().material = level2GroundMaterial;
+        
     }
 }

@@ -194,7 +194,8 @@ public class ArwingHealth : MonoBehaviour
     {
         Debug.Log("Game Over!");
 
-        audioManager.StopMusic();
+        audioManager.StopCorneriaMusic();
+        audioManager.StopSpaceMusic();
 
         // Verificación adicional antes de mostrar
         if (gameOverImage != null && !gameOverImage.gameObject.activeSelf)
