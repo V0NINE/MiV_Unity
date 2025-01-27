@@ -47,9 +47,18 @@ public class LevelController : MonoBehaviour
 
     void UpdateEnemyCounter()
     {
+        // Animación de escala para actualizar visualmente
         enemyCounterText.transform.localScale = Vector3.one * 1.2f;
-        enemyCounterText.text = $"<size=24><b>ENEMIES </b></size><size=36>{enemiesRemaining}</size>";
-        enemyCounterText.color = Color.Lerp(Color.red, Color.yellow, enemiesRemaining / (float)enemiesPerLevel);
+        if (enemiesRemaining > 0)
+        {
+            enemyCounterText.text = $"<size=24><b>ENEMIES </b></size><size=36>{enemiesRemaining}</size>";
+            enemyCounterText.color = Color.Lerp(Color.red, Color.yellow, enemiesRemaining / (float)enemiesPerLevel);
+        }
+        else
+        {
+            enemyCounterText.text = $"<size=24><b>NO ENEMIES LEFT</b></size>";
+            enemyCounterText.color = Color.green;
+        }
     }
 
     IEnumerator DelayedLevelStart()
