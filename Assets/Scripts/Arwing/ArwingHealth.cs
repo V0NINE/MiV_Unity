@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-
+using System.Collections;
 public class ArwingHealth : MonoBehaviour
 {
     [Header("Configuración de Vida")]
@@ -186,11 +186,11 @@ public class ArwingHealth : MonoBehaviour
         }
         else
         {
-            GameOver();
+            StartCoroutine(GameOver());
         }
     }
 
-    void GameOver()
+    IEnumerator GameOver()
     {
         Debug.Log("Game Over!");
 
@@ -211,6 +211,15 @@ public class ArwingHealth : MonoBehaviour
             Time.timeScale = 0f;
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
+
+            // Esperar 3 segundos antes de continuar
+            yield return new WaitForSecondsRealtime(3f);
+
+            // Ocultar la imagen de Game Over
+            gameOverImage.gameObject.SetActive(false);
+
+            // Cargar la escena final
+            UnityEngine.SceneManagement.SceneManager.LoadScene(2);
         }
     }
 

@@ -357,7 +357,7 @@ MonoBehaviour:
   netherPortalSound: {fileID: 8300000, guid: d967d0658d134504db97c5df21006edf, type: 3}
   netherPortalEnteredSound: {fileID: 8300000, guid: 538a77b4c2ea0a74489998569c07152c, type: 3}
   winSound: {fileID: 8300000, guid: 8c6f5040175c009408b17aab54b969dc, type: 3}
-  musicVolume: 0.1
+  musicVolume: 0.25
   laserVolume: 0.1
   boostVolume: 0.5
   boostFadeVolume: 0.5
@@ -367,7 +367,7 @@ MonoBehaviour:
   shieldBreakVolume: 0.5
   healthDamageVolume: 0.5
   gameOverVolume: 0.5
-  countdownVolume: 0.5
+  countdownVolume: 0.15
   enemyDamageVolume: 1
   enemyExplosionVolume: 0.75
   enemyDeathVolume: 0.5
@@ -2563,7 +2563,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd0c18290b5f0a145aef024607f01a82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemiesPerLevel: 5
+  enemiesPerLevel: 0
   maxGroupSize: 3
   timeBetweenGroups: 5
   levels: 2
