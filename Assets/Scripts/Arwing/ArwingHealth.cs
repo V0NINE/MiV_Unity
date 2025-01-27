@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 public class ArwingHealth : MonoBehaviour
 {
@@ -17,8 +16,8 @@ public class ArwingHealth : MonoBehaviour
 
     [Header("Regeneración de Salud")]
     public float regenDelay = 1f;         // Tiempo tras el último daño para empezar a regenerar
-    public int healAmountPerSecond = 10;  // Cantidad de salud recuperada por segundo
-    public float healInterval = 0.1f;     // Intervalo entre curaciones
+    public int healAmountPerSecond = 1;  // Cantidad de salud recuperada por segundo
+    public float healInterval = 0.2f;     // Intervalo entre curaciones
 
     [Header("UI de Vida")]
     public Image healthBar; // Arrastra la imagen HealthFill aquí
@@ -187,45 +186,30 @@ public class ArwingHealth : MonoBehaviour
         }
         else
         {
-            StartCoroutine(GameOver());
+            GameOver();
         }
     }
 
-    IEnumerator GameOver()
+    void GameOver()
     {
         Debug.Log("Game Over!");
 
-        // Detener la música
         audioManager.StopMusic();
 
-        // Mostrar la imagen de Game Over
+        // Verificación adicional antes de mostrar
         if (gameOverImage != null && !gameOverImage.gameObject.activeSelf)
         {
-            // Configurar la imagen como completamente opaca
             Color opaqueColor = gameOverImage.color;
             opaqueColor.a = 1f;
             gameOverImage.color = opaqueColor;
             gameOverImage.gameObject.SetActive(true);
 
-            // Reproducir el sonido de Game Over
             audioManager.PlayGameOverSound();
 
-            // Pausar el juego y activar el cursor
-            Time.timeScale = 0f; // Pausar el juego
+            // Pausar el juego y activar cursor
+            Time.timeScale = 0f;
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
-
-            // Esperar 3 segundos en tiempo real
-            yield return new WaitForSecondsRealtime(3f);
-
-            // Ocultar la imagen de Game Over (opcional, si deseas que desaparezca antes del reinicio)
-            gameOverImage.gameObject.SetActive(false);
-
-            // Reanudar el tiempo del juego antes de la acción
-            // Time.timeScale = 1f;
-
-            // Opciones después del Game Over
-            UnityEngine.SceneManagement.SceneManager.LoadScene(2);
         }
     }
 

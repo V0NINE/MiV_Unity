@@ -5,8 +5,8 @@ public class EnemyShooter : MonoBehaviour
     [Header("Configuración de Disparo")]
     public GameObject projectilePrefab;
     public Transform firePoint;
-    public float fireRate = 2f;
-    public float shootingRange = 45f;
+    public float fireRate = 1.5f;
+    public float shootingRange = 50f;
 
     private AudioManager audioManager;
     private Transform playerTransform;
@@ -15,8 +15,9 @@ public class EnemyShooter : MonoBehaviour
     [Header("Orientación al Disparar")]
     public bool facePlayerWhenShooting = true;
     public float rotationSpeed = 50f;
+    public float rotationOffset = 1.2f;
 
-    public float spawnForce = 10f;
+    public float spawnForce = 25f;
 
     void Start()
     {
@@ -49,6 +50,8 @@ public class EnemyShooter : MonoBehaviour
     {
         Vector3 direction = playerTransform.position - transform.position;
         direction.y = 0; // Ignora altura para rotación horizontal
+        direction.x = direction.x + 5f;
+        direction.z = direction.z + 5f;
 
         Quaternion targetRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(
@@ -63,19 +66,23 @@ public class EnemyShooter : MonoBehaviour
 
     void Shoot()
     {
+
+        Vector3 direction = playerTransform.position - firePoint.position;
+        Quaternion rotation = Quaternion.LookRotation(direction);
+        firePoint.rotation = Quaternion.Euler(rotation.eulerAngles.x + rotationOffset, rotation.eulerAngles.y, firePoint.rotation.eulerAngles.z);
+
         // Usa la rotación actual del firePoint manteniendo la inclinación correcta
         GameObject bullet = Instantiate(
             projectilePrefab,
             firePoint.position,
-             firePoint.rotation * Quaternion.Euler(90, 0, 0)
+            firePoint.rotation * Quaternion.Euler(-90, 0, 0)
         );
 
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            // Calcula dirección hacia el jugador (incluyendo altura)
-            Vector3 direction = (playerTransform.position - firePoint.position).normalized;
-            rb.AddForce(direction * spawnForce, ForceMode.Impulse);
+            // Dispara en la dirección del firePoint (que sigue al jugador)
+            rb.AddForce(firePoint.transform.forward * spawnForce, ForceMode.Impulse);
         }
         audioManager.PlayEnemyShotSound();
     }

@@ -9,14 +9,14 @@ public class EnemySpawner : MonoBehaviour
     public float minDistanceBetweenEnemies = 10f;
     public int maxAttemptsPerEnemy = 30;
 
+
     void Start()
     {
-       
     }
 
     private void Update()
     {
-       
+
     }
 
     public void SpawnEnemyGroup(int amount)
@@ -53,13 +53,14 @@ public class EnemySpawner : MonoBehaviour
             enemy.transform.parent = selectedSpawnPoint;
 
         }
+    
     }
 
     bool IsPositionValid(Vector3 newPosition, List<Transform> existingPositions)
     {
         foreach (Transform pos in existingPositions)
         {
-           
+
             if (Vector3.Distance(newPosition, pos.position) < minDistanceBetweenEnemies)
             {
                 return false;

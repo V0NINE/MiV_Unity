@@ -4,15 +4,15 @@ public class EnemyProjectile : MonoBehaviour
 {
     private const string ENEMY_TAG = "Enemy";
 
-    public int damage = 10;
+    public static int damage = 8;
     public float speed = 30f; // Velocidad alta (30 unidades/segundo)
     private ArwingHealth playerHealth;
 
-   
+
 
     private void Start()
     {
-        playerHealth = FindFirstObjectByType<ArwingHealth>();   
+        playerHealth = FindFirstObjectByType<ArwingHealth>();
     }
 
     void Update()
@@ -38,4 +38,5 @@ public class EnemyProjectile : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
 }
