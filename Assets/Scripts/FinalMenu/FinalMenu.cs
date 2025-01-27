@@ -40,7 +40,7 @@ public class FinalMenu : MonoBehaviour
     {
         audioManager.PlayButtonSelect();
         Debug.Log("Starting game...");
-        mainPanel.SetActive(false);
+        finalMenu.enabled = false;
         SceneManager.LoadScene(1);
     }
 
@@ -59,6 +59,7 @@ public class FinalMenu : MonoBehaviour
     public void ReturnToMainMenu()
     {
         audioManager.PlayButtonSelect();
+        finalMenu.enabled = false;
         SceneManager.LoadScene(0);
     }
 }

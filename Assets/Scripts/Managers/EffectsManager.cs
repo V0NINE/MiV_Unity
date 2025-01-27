@@ -39,7 +39,6 @@ public class EffectsManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
             InitializeAllPools();
         }
         else
@@ -66,6 +65,7 @@ public class EffectsManager : MonoBehaviour
 
     public void PlayBoostEffect(bool isBigBoost)
     {
+        
         foreach (Transform spawnPoint in boostSpawnPoints)
         {
             EffectPool poolToUse = isBigBoost ? boostEffect : smallBoostEffect;

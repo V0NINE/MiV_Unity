@@ -41,6 +41,7 @@ public class LevelController : MonoBehaviour
             congratulationsImage.gameObject.SetActive(false);
         enemySpawner = FindFirstObjectByType<EnemySpawner>();
         audioManager = FindFirstObjectByType<AudioManager>();
+        audioManager.PlayMusic();
         StartCoroutine(DelayedLevelStart());
     }
 
