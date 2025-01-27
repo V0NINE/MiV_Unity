@@ -14,9 +14,9 @@ public class EnemyShooter : MonoBehaviour
 
     [Header("Orientación al Disparar")]
     public bool facePlayerWhenShooting = true;
-    public float rotationSpeed = 5f;
+    public float rotationSpeed = 50f;
 
-    public float spawn_force = 10f;
+    public float spawnForce = 10f;
 
     void Start()
     {
@@ -67,14 +67,15 @@ public class EnemyShooter : MonoBehaviour
         GameObject bullet = Instantiate(
             projectilePrefab,
             firePoint.position,
-            firePoint.rotation * Quaternion.Euler(90, 0, 0)
+             firePoint.rotation * Quaternion.Euler(90, 0, 0)
         );
 
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            // Dispara en la dirección del firePoint (que sigue al jugador)
-            rb.AddForce(firePoint.forward * spawn_force, ForceMode.Impulse);
+            // Calcula dirección hacia el jugador (incluyendo altura)
+            Vector3 direction = (playerTransform.position - firePoint.position).normalized;
+            rb.AddForce(direction * spawnForce, ForceMode.Impulse);
         }
         audioManager.PlayEnemyShotSound();
     }

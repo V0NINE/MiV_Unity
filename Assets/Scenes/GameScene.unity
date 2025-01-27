@@ -119,6 +119,78 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &15500699
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 15500700}
+  - component: {fileID: 15500702}
+  - component: {fileID: 15500701}
+  m_Layer: 5
+  m_Name: NetherVideo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &15500700
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 15500699}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 831839586}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &15500701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 15500699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 8400000, guid: 778c17e19ba721b42b35920543302d28, type: 2}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+--- !u!222 &15500702
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 15500699}
+  m_CullTransparentMesh: 1
 --- !u!1 &31288921
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,8 +353,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 84bef1fd6ebf2814aa7c6319e92768e0, type: 3}
   enemyShotSound: {fileID: 8300000, guid: 027f1547f116f7ab9906f8221d2f5488, type: 3}
   enemySpottedSound: {fileID: 8300000, guid: 87e1160489245ee4d86fefef594f1a53, type: 3}
-  musicVolume: 0.064
-  laserVolume: 0.3
+  netherPortalSound: {fileID: 8300000, guid: d967d0658d134504db97c5df21006edf, type: 3}
+  netherPortalEnteredSound: {fileID: 8300000, guid: 538a77b4c2ea0a74489998569c07152c, type: 3}
+  musicVolume: 0.1
+  laserVolume: 0.1
   boostVolume: 0.5
   boostFadeVolume: 0.5
   bombVolume: 0.5
@@ -291,12 +365,14 @@ MonoBehaviour:
   shieldBreakVolume: 0.5
   healthDamageVolume: 0.5
   gameOverVolume: 0.5
-  countdownVolume: 0.35
+  countdownVolume: 0.5
   enemyDamageVolume: 1
   enemyExplosionVolume: 0.75
-  enemyDeathVolume: 0.25
-  enemyShotVolume: 0.25
-  enemySpottedVolume: 0.75
+  enemyDeathVolume: 0.5
+  enemyShotVolume: 0.5
+  enemySpottedVolume: 0.5
+  netherPortalVolume: 0.5
+  netherPortalEnteredVolume: 0.5
 --- !u!4 &140672919
 Transform:
   m_ObjectHideFlags: 0
@@ -1636,6 +1712,7 @@ RectTransform:
   - {fileID: 1548218145}
   - {fileID: 777053907}
   - {fileID: 1503432798}
+  - {fileID: 15500700}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2008,9 +2085,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841028b49b33ca1409bebeb02b80cb57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boostEffect:
-    prefab: {fileID: 3580562554555582605, guid: b720c9f24de318aea9af8b9ae9b2eaf5, type: 3}
-    parentContainer: {fileID: 0}
   healthDamageEffect:
     prefab: {fileID: 6386939895303487589, guid: 0eb961f5ed7af0a498fb4a405b87e904, type: 3}
     parentContainer: {fileID: 0}
@@ -2029,6 +2103,9 @@ MonoBehaviour:
   boostSpawnPoints:
   - {fileID: 1332830725}
   - {fileID: 810954212}
+  boostEffect:
+    prefab: {fileID: 3580562554555582605, guid: b720c9f24de318aea9af8b9ae9b2eaf5, type: 3}
+    parentContainer: {fileID: 0}
   smallBoostEffect:
     prefab: {fileID: 3580562554555582605, guid: 4cf8c37b455683004bbee3a1aa2577bb, type: 3}
     parentContainer: {fileID: 0}
@@ -2439,6 +2516,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1388980984}
   - component: {fileID: 1388980985}
+  - component: {fileID: 1388980986}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2473,12 +2551,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd0c18290b5f0a145aef024607f01a82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemiesPerLevel: 10
+  enemiesPerLevel: 0
   maxGroupSize: 3
   timeBetweenGroups: 5
-  portalPrefab: {fileID: 5345474218792467877, guid: d1510b2386a3e2745a6c42b0b96ba0cc, type: 3}
+  portalPrefab: {fileID: 3871744593774535438, guid: 764cb7573e1e23847b5e367e65aa31ef, type: 3}
   playerTransform: {fileID: 562601947}
   enemyCounterText: {fileID: 1503432799}
+  imageNetherVideo: {fileID: 15500699}
+--- !u!328 &1388980986
+VideoPlayer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388980983}
+  m_Enabled: 1
+  m_VideoClip: {fileID: 32900000, guid: 995db28686319ce46bbbbe1a42b059b9, type: 3}
+  m_TargetCameraAlpha: 1
+  m_TargetCamera3DLayout: 0
+  m_TargetCamera: {fileID: 330585545}
+  m_TargetTexture: {fileID: 8400000, guid: 778c17e19ba721b42b35920543302d28, type: 2}
+  m_TimeReference: 0
+  m_TargetMaterialRenderer: {fileID: 0}
+  m_TargetMaterialProperty: <noninit>
+  m_RenderMode: 2
+  m_AspectRatio: 5
+  m_DataSource: 0
+  m_TimeUpdateMode: 2
+  m_PlaybackSpeed: 1
+  m_AudioOutputMode: 2
+  m_TargetAudioSources:
+  - {fileID: 0}
+  m_DirectAudioVolumes:
+  - 1
+  m_Url: 
+  m_EnabledAudioTracks: 01
+  m_DirectAudioMutes: 01
+  m_ControlledAudioTrackCount: 1
+  m_PlayOnAwake: 0
+  m_SkipOnDrop: 1
+  m_Looping: 0
+  m_WaitForFirstFrame: 1
+  m_FrameReadyEventEnabled: 0
+  m_VideoShaders: []
 --- !u!1 &1453135982
 GameObject:
   m_ObjectHideFlags: 0

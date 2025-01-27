@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
 using TMPro;
+using UnityEngine.Video; // Necesario para usar el VideoPlayer
+using UnityEngine.UI;
 
 public class LevelController : MonoBehaviour
 {
@@ -17,6 +19,7 @@ public class LevelController : MonoBehaviour
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI enemyCounterText;
 
+
     private int currentLevel = 0;
     private int enemiesRemaining;
     private Portal activePortal;
@@ -26,8 +29,11 @@ public class LevelController : MonoBehaviour
 
     private AudioManager audioManager;
 
+    public GameObject imageNetherVideo;
+
     void Start()
     {
+        imageNetherVideo.SetActive(false);
         enemySpawner = FindFirstObjectByType<EnemySpawner>();
         audioManager = FindFirstObjectByType<AudioManager>();
         StartCoroutine(DelayedLevelStart());
@@ -79,20 +85,50 @@ public class LevelController : MonoBehaviour
         if (enemiesRemaining <= 0 && !portalSpawned)
         {
             CancelInvoke(nameof(SpawnEnemyGroup));
-            SpawnPortal();
+            StartCoroutine(DelayedSpawnPortal());
         }
+    }
+
+    IEnumerator DelayedSpawnPortal()
+    {
+        // Esperar 5 segundos antes de spawnear portal
+        yield return new WaitForSeconds(5f);
+
+        SpawnPortal();
     }
 
     void SpawnPortal()
     {
         portalSpawned = true;
-        activePortal = Instantiate(portalPrefab, playerTransform.position + playerTransform.forward * 50f, Quaternion.identity);
-        activePortal.Initialize(playerTransform);
+        Vector3 portalPosition = new Vector3(8f, -4f, 68f);
+        activePortal = Instantiate(portalPrefab, portalPosition, Quaternion.identity);
     }
 
     public void OnPortalEntered()
     {
         Destroy(activePortal.gameObject);
-        StartNewLevel();
+        audioManager.PlayNetherEnteredSound();
+
+        // Reproduce el video en la cámara
+        StartCoroutine(PlayPortalVideo());
+    }
+
+    IEnumerator PlayPortalVideo()
+    {
+        audioManager.StopMusic();
+        imageNetherVideo.SetActive(true);
+        VideoPlayer videoPlayer = GetComponent<VideoPlayer>();
+        // Configura y reproduce el video
+        videoPlayer.Play();
+
+        // Espera a que termine el video
+        yield return new WaitForSeconds((float)videoPlayer.clip.length);
+
+        // Stop
+        videoPlayer.Stop();
+        imageNetherVideo.SetActive(false);
+
+        audioManager.PlayMusic();
+        StartCoroutine(DelayedLevelStart());
     }
 }

@@ -17,6 +17,7 @@ public class BoostController : MonoBehaviour
 
     // Entities gestionats pel controlador global EntityManager
     private EnemyManager entityManager;
+    private Portal portal;
 
     private LandTextureScroller landScroller;
 
@@ -30,8 +31,9 @@ public class BoostController : MonoBehaviour
 
        	entityManager = FindFirstObjectByType<EnemyManager>();
 	landScroller = FindFirstObjectByType<LandTextureScroller>();
+        portal = FindFirstObjectByType<Portal>();
 
-	boostEffect = GetComponent<BoostEffect>();
+        boostEffect = GetComponent<BoostEffect>();
 	audioManager = FindFirstObjectByType<AudioManager>();
 
 	UpdateBoostUI();
@@ -39,6 +41,7 @@ public class BoostController : MonoBehaviour
 
     void Update()
     {
+        portal = FindFirstObjectByType<Portal>();
         if (Input.GetKeyDown(KeyCode.Space))
         {
             StartBoost();
@@ -75,7 +78,9 @@ public class BoostController : MonoBehaviour
         mainCamera.fieldOfView = cameraFOVBoost;
 
         entityManager.SetEntitySpeedMultiplier(entitySpeedMultiplier);
-	landScroller.SetScrollSpeedMultiplier(landSpeedMultiplier);
+        if (portal != null)
+            portal.SetSpeedMultiplier(entitySpeedMultiplier);
+        landScroller.SetScrollSpeedMultiplier(landSpeedMultiplier);
 
 	boostEffect.StartBoostEffect();
 	audioManager.PlayBoostSound();
@@ -91,7 +96,9 @@ public class BoostController : MonoBehaviour
         mainCamera.fieldOfView = normalFOV;
 
         entityManager.SetEntitySpeedMultiplier(1f);
-	landScroller.SetScrollSpeedMultiplier(1f);
+        if (portal != null)
+            portal.SetSpeedMultiplier(1f);
+        landScroller.SetScrollSpeedMultiplier(1f);
 
 	boostEffect.EndBoostEffect();
 

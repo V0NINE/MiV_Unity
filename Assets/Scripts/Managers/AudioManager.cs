@@ -58,6 +58,12 @@ public class AudioManager : MonoBehaviour
     private AudioSource enemySpottedSource;
     public AudioClip enemySpottedSound;
 
+    [Header("Portal")]
+    public AudioClip netherPortalSound;
+    private AudioSource netherPortalSource;
+    public AudioClip netherPortalEnteredSound;
+    private AudioSource netherPortalEnteredSource;
+
     private const int POOL_SIZE = 5;
 
 
@@ -78,6 +84,8 @@ public class AudioManager : MonoBehaviour
     [Range(0, 1)] public float enemyDeathVolume = 0.5f;
     [Range(0, 1)] public float enemyShotVolume = 0.5f;
     [Range(0, 1)] public float enemySpottedVolume = 0.5f;
+    [Range(0, 1)] public float netherPortalVolume = 0.5f;
+    [Range(0, 1)] public float netherPortalEnteredVolume = 0.5f;
 
     void Awake()
     {
@@ -88,8 +96,10 @@ public class AudioManager : MonoBehaviour
             InitializeAllAudioSources();
             InitializeLaserSound();
             InitializeShieldDamageSound(); 
-            InitializeHealthDamageSound(); 
-            InitializeEnemyDamageSound();  
+            InitializeHealthDamageSound();
+            InitializeEnemyDamageSound();
+            InitializeNetherPortalSound();
+            IntializeNetherPortalEntederSound();
             PlayMusic();
         }
         else
@@ -143,6 +153,26 @@ public class AudioManager : MonoBehaviour
             source.volume = enemyDamageVolume;
             source.playOnAwake = false;
             enemyDamagePool.Enqueue(source);
+        }
+    }
+
+    public void InitializeNetherPortalSound()
+    {
+        netherPortalSource = CreateAudioSource(netherPortalSound, netherPortalVolume);
+        netherPortalSource.loop = true;
+        netherPortalSource.playOnAwake = false;
+    }
+
+    public void IntializeNetherPortalEntederSound()
+    {
+        netherPortalEnteredSource = CreateAudioSource(netherPortalEnteredSound, netherPortalEnteredVolume);
+    }
+
+    public void StopNetherSound()
+    {
+        if (netherPortalSource != null)
+        {
+            netherPortalSource.Stop();
         }
     }
 
@@ -264,6 +294,8 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+   
+
     public void StopMusic()
     {
         if (musicSource != null)
@@ -281,6 +313,9 @@ public class AudioManager : MonoBehaviour
     public void PlayGameOverSound() => PlaySound(gameOverSource);
     public void PlayCountdownSound() => PlaySound(countdownSource);
     public void PlayEnemyExplosionSound() => PlaySound(enemyExplosionSource);
+
+    public void PlayNetherSound() => PlaySound(netherPortalSource);
+    public void PlayNetherEnteredSound() => PlaySound(netherPortalEnteredSource);
 
     public void PlayEnemyDeathSound()
     {
@@ -325,6 +360,9 @@ public class AudioManager : MonoBehaviour
     public void UpdateEnemyDeathVolume(float volume) => UpdateVolume(ref enemyDeathVolume, enemyDeathSource, volume);
 
     public void UpdateEnemySpottedVolume(float volume) => UpdateVolume(ref enemySpottedVolume, enemySpottedSource, volume);
+
+    public void UpdateNetherPortalVolume(float volume) => UpdateVolume(ref netherPortalVolume, netherPortalSource, volume);
+    public void UpdateNetherPortalEnteredVolume(float volume) => UpdateVolume(ref netherPortalEnteredVolume, netherPortalEnteredSource, volume);
 
     public void UpdateShieldDamageVolume(float volume)
     {

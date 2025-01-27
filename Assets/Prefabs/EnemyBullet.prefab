@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &3979797718406648561
+--- !u!1001 &5976709220589690759
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3538434855476763342, guid: ff9d71f040b722e6681e0a97df2216d3, type: 3}
       propertyPath: m_Name
-      value: EnemyBullet 1
+      value: EnemyBullet
       objectReference: {fileID: 0}
     - target: {fileID: 8949365536436281689, guid: ff9d71f040b722e6681e0a97df2216d3, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -63,39 +63,54 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3538434855476763342, guid: ff9d71f040b722e6681e0a97df2216d3, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7992294275605083728}
+      addedObject: {fileID: 2926000978861259783}
     - targetCorrespondingSourceObject: {fileID: 3538434855476763342, guid: ff9d71f040b722e6681e0a97df2216d3, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2565515986942259425}
+      addedObject: {fileID: 4144191294353020967}
+    - targetCorrespondingSourceObject: {fileID: 3538434855476763342, guid: ff9d71f040b722e6681e0a97df2216d3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 879567280031269890}
   m_SourcePrefab: {fileID: 100100000, guid: ff9d71f040b722e6681e0a97df2216d3, type: 3}
---- !u!1 &441387056883845183 stripped
+--- !u!1 &7199710570201826633 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3538434855476763342, guid: ff9d71f040b722e6681e0a97df2216d3, type: 3}
-  m_PrefabInstance: {fileID: 3979797718406648561}
+  m_PrefabInstance: {fileID: 5976709220589690759}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7992294275605083728
+--- !u!114 &2926000978861259783
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 441387056883845183}
+  m_GameObject: {fileID: 7199710570201826633}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e1d46ae4d90492d4d892943105df851c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
-  speed: 30
---- !u!114 &2565515986942259425
+  speed: 50
+--- !u!114 &4144191294353020967
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 441387056883845183}
+  m_GameObject: {fileID: 7199710570201826633}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aec27a9985706e64a82daa43c77da95c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &879567280031269890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7199710570201826633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f628f2e6bed773c4fab904f8f51aad86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

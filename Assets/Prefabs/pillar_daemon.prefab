@@ -197,13 +197,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1301df3607026f74985aeff99bd32675, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 441387056883845183, guid: b7f6040de4c57484bac401d6834211fa, type: 3}
+  projectilePrefab: {fileID: 7199710570201826633, guid: f481786f383159145b04fec739403947, type: 3}
   firePoint: {fileID: 9004756446913871546}
   fireRate: 2
   shootingRange: 45
   facePlayerWhenShooting: 1
   rotationSpeed: 50
-  spawn_force: 10
+  spawnForce: 20
 --- !u!114 &3738869830852248473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,7 +232,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnAnimationDuration: 1
   spawnHeight: 20
-  fixedZPosition: 60
+  fixedZPosition: 20
   targetYPosition: -5
 --- !u!114 &-3934470235620399511
 MonoBehaviour:

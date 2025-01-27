@@ -41,6 +41,9 @@ public class EnemyAproximate : MonoBehaviour
             transform.position.y,
             initialZ
         );
+
+        // rotacion inicial
+        transform.rotation = Quaternion.identity;
     }
 
     public void SetSpeedMultiplier(float multiplier)
