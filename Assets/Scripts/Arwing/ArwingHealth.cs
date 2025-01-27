@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class ArwingHealth : MonoBehaviour
 {
@@ -186,30 +187,45 @@ public class ArwingHealth : MonoBehaviour
         }
         else
         {
-            GameOver();
+            StartCoroutine(GameOver());
         }
     }
 
-    void GameOver()
+    IEnumerator GameOver()
     {
         Debug.Log("Game Over!");
 
+        // Detener la música
         audioManager.StopMusic();
 
-        // Verificación adicional antes de mostrar
+        // Mostrar la imagen de Game Over
         if (gameOverImage != null && !gameOverImage.gameObject.activeSelf)
         {
+            // Configurar la imagen como completamente opaca
             Color opaqueColor = gameOverImage.color;
             opaqueColor.a = 1f;
             gameOverImage.color = opaqueColor;
             gameOverImage.gameObject.SetActive(true);
 
+            // Reproducir el sonido de Game Over
             audioManager.PlayGameOverSound();
 
-            // Pausar el juego y activar cursor
-            Time.timeScale = 0f;
+            // Pausar el juego y activar el cursor
+            Time.timeScale = 0f; // Pausar el juego
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
+
+            // Esperar 3 segundos en tiempo real
+            yield return new WaitForSecondsRealtime(3f);
+
+            // Ocultar la imagen de Game Over (opcional, si deseas que desaparezca antes del reinicio)
+            gameOverImage.gameObject.SetActive(false);
+
+            // Reanudar el tiempo del juego antes de la acción
+            // Time.timeScale = 1f;
+
+            // Opciones después del Game Over
+            UnityEngine.SceneManagement.SceneManager.LoadScene(2);
         }
     }
 

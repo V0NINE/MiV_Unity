@@ -64,6 +64,10 @@ public class AudioManager : MonoBehaviour
     public AudioClip netherPortalEnteredSound;
     private AudioSource netherPortalEnteredSource;
 
+    [Header("Win")]
+    public AudioClip winSound;
+    private AudioSource winSource;
+
     private const int POOL_SIZE = 5;
 
 
@@ -86,6 +90,7 @@ public class AudioManager : MonoBehaviour
     [Range(0, 1)] public float enemySpottedVolume = 0.5f;
     [Range(0, 1)] public float netherPortalVolume = 0.5f;
     [Range(0, 1)] public float netherPortalEnteredVolume = 0.5f;
+    [Range(0, 1)] public float winVolume = 0.5f;
 
     void Awake()
     {
@@ -207,6 +212,9 @@ public class AudioManager : MonoBehaviour
         enemyDeathSource = CreateAudioSource(null, enemyDeathVolume);
         enemyShotSource = CreateAudioSource(enemyShotSound, enemyShotVolume);
         enemySpottedSource = CreateAudioSource(enemySpottedSound, enemySpottedVolume);
+
+        // Win
+        winSource = CreateAudioSource(winSound, winVolume);
     }
 
     private AudioSource CreateAudioSource(AudioClip clip, float volume, bool loop = false)
@@ -234,6 +242,13 @@ public class AudioManager : MonoBehaviour
         PlayWithPool(enemyDamagePool, enemyDamageSound, enemyDamageVolume);
     }
 
+    public void PlayWinSound()
+    {
+        if (winSource != null)
+        {
+            winSource.Play();
+        }
+    }
     private void PlayWithPool(Queue<AudioSource> pool, AudioClip clip, float volume)
     {
         AudioSource source = GetAvailableSource(pool, clip);
